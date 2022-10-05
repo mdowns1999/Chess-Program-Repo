@@ -5,21 +5,18 @@
 
 class Piece
 {
-public:
    // For the Unit Tests
-   friend testPiece;
+   friend class testPiece;
 
 protected:
    Position position;
-
+   bool fWhite;
    int nMove;
    int lastMove;
 
 
 
 public:
-
-   bool fWhite;
    Piece();
 
    // Constructor
