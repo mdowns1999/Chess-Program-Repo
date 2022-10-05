@@ -14,3 +14,9 @@ void testRunner()
    testPiece().run();
    cout << "Success!\n";
 }
+
+int main()
+{
+   testRunner();
+   return 0;
+}

@@ -1,9 +1,14 @@
 #pragma once
 #include "position.h"
+#include "board.h"
 
 
 class Piece
 {
+public:
+   // For the Unit Tests
+   friend testPiece;
+
 protected:
    Position position;
 
@@ -15,8 +20,7 @@ protected:
 public:
 
    bool fWhite;
-   // For the Unit Tests
-   friend testPiece;
+   Piece();
 
    // Constructor
    Piece(int r, int c, bool white);
@@ -32,7 +36,7 @@ public:
    //Virtual Functions for Inheritance
    virtual char getLetter() {}
    virtual void display() {}
-   //virtual void getMoves(Board board) {};
+   virtual void getMoves(Board board) {};
 };
 
 

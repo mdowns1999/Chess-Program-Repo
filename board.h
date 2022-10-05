@@ -1,3 +1,13 @@
+/***********************************************************************
+ * Header File:
+ *    Board : The Board of Chess
+ * Author:
+ *   Ben, Star, and Mike
+ * Summary:
+ *    This keeps track of the chess board.
+ ************************************************************************/
+
+
 #pragma once
 #include "position.h"
 #include "piece.h"
@@ -6,12 +16,13 @@
 class Board
 {
 private:
-   //array board[];
+   Piece board[64];
    int currentMove;
+   Position pt;
 
 public:
    Board() { reset(); };
-   //Board(Position pt) { this->pt = pt; };
+   Board(Position pt) { this->pt = pt; };
    int getCurrentMove();
    bool whiteTurn();
    void display(Position posHover, Position posSel);
