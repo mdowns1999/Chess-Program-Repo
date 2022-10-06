@@ -31,10 +31,7 @@ void display(Position posHover, Position posSel)
  * GET
  * Get Piece Position
  ****************************************************************/
-Piece get(Position position)
-{
-
-};
+//Piece get(Position position){};
 
 /*****************************************************************
  * FREE

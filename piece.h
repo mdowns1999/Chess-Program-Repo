@@ -13,6 +13,7 @@ protected:
    bool fWhite;
    int nMove;
    int lastMove;
+   //Board board;
 
 
 
@@ -33,7 +34,7 @@ public:
    //Virtual Functions for Inheritance
    virtual char getLetter() {}
    virtual void display() {}
-   virtual void getMoves(Board board) {};
+   //virtual void getMoves(Board board) {};
 };
 
 
