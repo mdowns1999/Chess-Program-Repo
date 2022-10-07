@@ -1,7 +1,7 @@
 #include "test.h"
 #include "testPawn.h"
 //#include "board.h"
-//#include "testPiece.h"
+#include "testPiece.h"
 #include <iostream>
 using namespace std;
 
@@ -12,7 +12,7 @@ using namespace std;
 void testRunner()
 {
    testPawn().run();
-   //testPiece().run();
+   testPiece().run();
   // Board board;
    //board.free();
    

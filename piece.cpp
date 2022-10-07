@@ -10,9 +10,10 @@ Piece::Piece()
    lastMove = 0;
    position.setRow(r);
    position.setCol(c);
+   letter = 'u';
 }
 
-Piece::Piece(int r, int c, bool white)  : Piece()
+Piece::Piece(int r, int c, bool white) 
 {
    this->r = r;
    this->c = c;
@@ -21,6 +22,9 @@ Piece::Piece(int r, int c, bool white)  : Piece()
    this->lastMove = 0;
    this->position.setRow(r);
    this->position.setCol(c);
+   letter = 'u';
+
+   cout << "Before Letter: " << letter << endl;    
 
 };
 

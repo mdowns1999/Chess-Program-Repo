@@ -2,13 +2,18 @@
 
 Board::Board()
 {
-   
 
+   cout << "Populate Board" << endl;
    for (int i = 0; i < 64; i++)
    {
-      board[i] = new Piece();
+      int r = i / 8 + 1;
+      int c = i % 8;
+
+      Piece* piece = new Piece(r, c, true);
+      board[i] = piece;
    }
-}
+
+};
 
 
 /*****************************************************************

@@ -68,7 +68,7 @@ private:
       // exercise
       p.assign(pos);
       // verify
-      cout << p.position.location << endl;
+
       assert(p.position.location == 2);
 
    }  // teardown

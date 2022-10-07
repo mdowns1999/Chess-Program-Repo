@@ -18,7 +18,7 @@ protected:
    int lastMove;
    int r;
    int c;
-
+   char letter = 'u';
    //Board board;
 
 
@@ -38,8 +38,8 @@ public:
    bool justMoved();
 
    //Virtual Functions for Inheritance
-   //virtual char getLetter() { return 'P'; };
-   virtual void display() {}
+   virtual char getLetter() { return letter; }
+   //virtual void display() {}
    virtual set<int> getMoves(Board& board) { return set<int>(); }
 };
 

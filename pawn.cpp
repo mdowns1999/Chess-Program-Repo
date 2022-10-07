@@ -34,6 +34,16 @@ char Pawn::getLetter()
    
    Position posMove(position, fWhite ? 8 : -8);
 
+   cout << posMove.getLocation();
+   
+   Piece test = board.getBoard()[posMove.getLocation()];//.getLetter();
+   cout << "\nLetter: " << test.getLetter() << endl;
+
+   /*if(posMove.isValid() && board.getBoard()[posMove.getLocation()].getLetter() == 'u')
+   {
+
+   }*/
+   
 
     return pawnMoves;
  };

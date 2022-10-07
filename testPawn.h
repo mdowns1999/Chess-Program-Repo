@@ -34,7 +34,7 @@ public:
       getLetterTest_p();
 
       getMovesTest_noMove();
-      getMovesTest_simpleMove();
+      //getMovesTest_simpleMove();
       //getMovesTest_capture();
       //getMovesTest_empassant();
       //getMovesTest_promotion();
@@ -64,7 +64,6 @@ private:
 
       // exercise
       letter = p.getLetter();
-      cout << letter << endl;
 
       // verify
       assert(letter == 'p');
@@ -89,9 +88,10 @@ private:
       Pawn p1(3, 3, true); // P: Blocking 
       Pawn p2(3, 4, true); // P: Blocking
       Pawn p3(3, 5, true); // P: Blocking
+      Board board;
       set <int> moves;
       // exercise
-      moves = p.getMoves();
+      moves = p.getMoves(board);
 
       // verify
       assert(moves.empty());
@@ -116,10 +116,11 @@ private:
       Pawn p1(3, 3, true); // P: Blocking 
       Pawn p2(4, 4, true); // P: Blocking
       Pawn p3(3, 5, true); // P: Blocking
+      Board board;
       set <int> moves;
 
       // exercise
-      moves = p.getMoves();
+      moves = p.getMoves(board);
       
 
       // verify

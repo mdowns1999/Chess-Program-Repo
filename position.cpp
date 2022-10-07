@@ -15,7 +15,7 @@ Position::Position(Position position, int move)
  ****************************************************************/
 int Position::getLocation()
 {
-   return 0;
+   return location;
 };
 
 /*****************************************************************
@@ -60,7 +60,7 @@ int Position::getY()
  ****************************************************************/
 bool Position::isValid()
 {
-   return true;
+   return (location >= 1 && location <= 64);
 };
 
 /*****************************************************************
