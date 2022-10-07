@@ -4,7 +4,7 @@
  * GET CURRENT MOVE
  * Get Current Move
  ****************************************************************/
-int getCurrentMove()
+int Board::getCurrentMove()
 {
    return 0;
 };
@@ -13,7 +13,7 @@ int getCurrentMove()
  * WHITE TURN
  * Is it Whites turn?
  ****************************************************************/
-bool whiteTurn()
+bool Board::whiteTurn()
 {
    return false;
 };
@@ -22,7 +22,7 @@ bool whiteTurn()
  * DISPLAY
  * Display Board
  ****************************************************************/
-void display(Position posHover, Position posSel)
+void Board::display(Position posHover, Position posSel)
 {
 
 };
@@ -37,7 +37,7 @@ void display(Position posHover, Position posSel)
  * FREE
  * Is something free
  ****************************************************************/
-void free()
+void Board::free()
 {
 
 };
@@ -46,7 +46,7 @@ void free()
  * RESET
  * Reset the board
  ****************************************************************/
-void reset()
+void Board::reset()
 {
 
 };
@@ -55,7 +55,7 @@ void reset()
  * MOVE
  * Move the Piece
  ****************************************************************/
-void move(Move move)
+void Board::move(Move move)
 {
 
 };
@@ -64,7 +64,7 @@ void move(Move move)
  * ASSIGN
  * Assign the Piece
  ****************************************************************/
-void assign(Piece piece)
+void Board::assign(Piece piece)
 {
 
 };
@@ -73,7 +73,7 @@ void assign(Piece piece)
  * SWAP
  * Swap th ePieces
  ****************************************************************/
-void swap(Position position1, Position position2)
+void Board::swap(Position position1, Position position2)
 {
 
 };
@@ -82,7 +82,7 @@ void swap(Position position1, Position position2)
  * ASSERT BOARD
  * Check the board
  ****************************************************************/
-void assertBoard()
+void Board::assertBoard()
 {
 
 };

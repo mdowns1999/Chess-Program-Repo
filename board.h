@@ -13,8 +13,8 @@
 #include "piece.h"
 #include "move.h"
 #include "uiDraw.h"
-//#include <iostream>
-//using namespace std;
+#include <iostream>
+using namespace std;
 
 class Board
 {

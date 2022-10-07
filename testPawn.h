@@ -20,11 +20,11 @@
  **********************************************/
 
 
-
+#pragma once
 #include "pawn.h"
 #include "cassert"
 #include <set>
-#pragma once
+
 class testPawn
 {
 public:
@@ -33,11 +33,11 @@ public:
       getLetterTest_P();
       getLetterTest_p();
 
-      getMovesTest_noMove();
-      getMovesTest_simpleMove();
-      getMovesTest_capture();
-      getMovesTest_empassant();
-      getMovesTest_promotion();
+      //getMovesTest_noMove();
+      //getMovesTest_simpleMove();
+      //getMovesTest_capture();
+      //getMovesTest_empassant();
+      //getMovesTest_promotion();
 
    }
 private:
@@ -69,8 +69,7 @@ private:
       assert(letter == 'p');
    }  // teardown
 
-
-  // test the getMoves for the pawn class 
+   // test the getMoves for the pawn class 
   /*********************************************
   * * * A  B  C  D  E  F  G  H * *
   * 8   57 58 59 60 61 62 63 64

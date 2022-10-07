@@ -1,5 +1,5 @@
 #include "test.h"
-#include "testpawn.h"
+#include "testPawn.h"
 #include "testPiece.h"
 #include <iostream>
 using namespace std;
@@ -10,13 +10,14 @@ using namespace std;
  ****************************************************************/
 void testRunner()
 {
-   testPawn().run();
+   //testPawn().run();
    testPiece().run();
-   cout << "Success!\n";
+   
 }
 
 int main()
 {
    testRunner();
+   cout << "Success!\n";
    return 0;
 }

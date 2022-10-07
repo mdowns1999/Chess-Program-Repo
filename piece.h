@@ -1,6 +1,7 @@
 #pragma once
 #include "position.h"
 #include "board.h"
+#include<set>
 
 
 class Piece
@@ -13,14 +14,17 @@ protected:
    bool fWhite;
    int nMove;
    int lastMove;
+   int r;
+   int c;
+
    //Board board;
 
 
 
 public:
-   Piece();
 
    // Constructor
+   Piece();
    Piece(int r, int c, bool white);
 
    void assign(Position position);
@@ -32,9 +36,9 @@ public:
    bool justMoved();
 
    //Virtual Functions for Inheritance
-   virtual char getLetter() {}
+   //virtual char getLetter() { return 'P'; };
    virtual void display() {}
-   //virtual void getMoves(Board board) {};
+   //virtual void getMoves() {};
 };
 
 

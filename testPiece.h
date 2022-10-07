@@ -12,6 +12,8 @@
 #include "piece.h"
 #include "position.h"
 #include <cassert>
+#include <iostream>
+using namespace std;
 
 class testPiece
 {
@@ -49,7 +51,8 @@ private:
       Piece p(1, 2, true);
 
       // verify
-      assert(p.position.location == 2);
+      assert(p.r == 1);
+      assert(p.c == 2);
       assert(p.fWhite == true);
 
    }  // teardown
@@ -61,11 +64,12 @@ private:
       // setup
       Piece p(1, 2, true);
       Position pos;
-      pos.location = 10;
+      pos.location = 2;
       // exercise
       p.assign(pos);
       // verify
-      assert(p.position.location == 10);
+      cout << p.position.location << endl;
+      assert(p.position.location == 2);
 
    }  // teardown
 

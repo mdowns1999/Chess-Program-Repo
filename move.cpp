@@ -7,12 +7,12 @@ string Move::getText()
 
 Position Move::getSrc()
 {
-
+   return source;
 };
 
 Position Move::getDes()
 {
-   //return source.getRow();
+   return dest;
 };
 
 

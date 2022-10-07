@@ -1,31 +1,67 @@
 #include "piece.h"
 
 
+Piece::Piece()
+{
+   r = 1;
+   c = 0;
+   fWhite = true;
+   nMove = 0;
+   lastMove = 0;
+   position.setRow(r);
+   position.setCol(c);
+}
+
+Piece::Piece(int r, int c, bool white)
+{
+   this->r = r;
+   this->c = c;
+   this->fWhite = white;
+   this->nMove = 0;
+   this->lastMove = 0;
+   this->position.setRow(r);
+   this->position.setCol(c);
+
+};
+
 /*****************************************************************
  * ASSIGN
  * Assign Piece a Position
  ****************************************************************/
-void Piece::assign(Position)
+void Piece::assign(Position position)
 {
 
+   this->position.setRow(position.getRow());
+   this->position.setCol(position.getColumn());
+
+   this->r = position.getRow();
+   this->c = position.getColumn();
+
+   nMove++;
 };
 
 /*****************************************************************
  * ASSIGN
  * Assign the Piece
  ****************************************************************/
-void Piece::assign(Piece)
+void Piece::assign(Piece piece)
 {
+   this->r = piece.r;
+   this->c = piece.c;
+
+   this->position.setRow(piece.r);
+   this->position.setCol(piece.c);
+   this->fWhite = piece.fWhite;
 
 };
 
 /*****************************************************************
  * IS WHITE
- * Return if Peice is white or not
+ * Return if Piece is white or not
  ****************************************************************/
 bool Piece::isWhite()
 {
-   return false;
+   return fWhite;
 };
 
 /*****************************************************************
@@ -34,7 +70,7 @@ bool Piece::isWhite()
  ****************************************************************/
 bool Piece::isMove()
 {
-   return false;
+   return (nMove != 0);
 };
 
 /*****************************************************************
@@ -43,7 +79,7 @@ bool Piece::isMove()
  ****************************************************************/
 int Piece::getNMoves()
 {
-   return 0;
+   return nMove;
 };
 
 /*****************************************************************
@@ -52,7 +88,7 @@ int Piece::getNMoves()
  ****************************************************************/
 Position Piece::getPosition()
 {
-
+   return position;
 };
 
 /*****************************************************************

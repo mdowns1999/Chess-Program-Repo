@@ -9,7 +9,7 @@ private:
 public:
    int location;
 
-   Position();
+   Position() { location = 0;};
    int getLocation();
    int getRow();
    int getColumn();
