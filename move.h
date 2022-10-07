@@ -1,6 +1,5 @@
 #pragma once
-#include "position.h"
-#include "piece.h"
+#include "board.h"
 #include <string>
 #include <iostream>
 using namespace std;

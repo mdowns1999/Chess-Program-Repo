@@ -6,7 +6,7 @@ Board::Board()
 
    for (int i = 0; i < 64; i++)
    {
-      board[i] = Piece();
+      board[i] = new Piece();
    }
 }
 

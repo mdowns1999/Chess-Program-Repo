@@ -1,6 +1,7 @@
 #include "test.h"
 #include "testPawn.h"
-#include "testPiece.h"
+//#include "board.h"
+//#include "testPiece.h"
 #include <iostream>
 using namespace std;
 
@@ -12,6 +13,9 @@ void testRunner()
 {
    testPawn().run();
    //testPiece().run();
+  // Board board;
+   //board.free();
+   
    
 }
 

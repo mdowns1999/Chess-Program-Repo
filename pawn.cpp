@@ -29,7 +29,7 @@ char Pawn::getLetter()
    return letter;
 }
 //virtual void display() {};
- set<int> Pawn::getMoves() 
+ set<int> Pawn::getMoves(Board &board) 
  { 
    
    Position posMove(position, fWhite ? 8 : -8);

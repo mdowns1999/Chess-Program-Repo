@@ -2,7 +2,9 @@
 #include "position.h"
 #include "board.h"
 #include<set>
+using namespace std;
 
+class Board;
 
 class Piece
 {
@@ -38,7 +40,7 @@ public:
    //Virtual Functions for Inheritance
    //virtual char getLetter() { return 'P'; };
    virtual void display() {}
-   //virtual void getMoves() {};
+   virtual set<int> getMoves(Board& board) { return set<int>(); }
 };
 
 

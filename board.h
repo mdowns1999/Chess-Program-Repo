@@ -11,17 +11,20 @@
 #pragma once
 #include "position.h"
 #include "piece.h"
-#include "space.h"
-#include "move.h"
+
+//#include "space.h"
+//#include "move.h"
 #include "uiDraw.h"
 #include <iostream>
 using namespace std;
 
+class Piece;
+
 class Board
 {
 private:
-   //Piece * board[64];
-   Piece board[64];
+   Piece * board[64];
+   //Piece board[64];
    int currentMove;
    Position pt;
    ogstream gout;

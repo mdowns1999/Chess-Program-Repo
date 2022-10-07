@@ -1,6 +1,9 @@
 #pragma once
 #include "piece.h"
+#include "board.h"
 #include <set>
+
+using namespace std;
 
 class Pawn: public Piece
 {
@@ -18,6 +21,6 @@ public:
    //Inherited Functions
    char getLetter();
    //virtual void display() {};
-   set<int> getMoves();
+   set<int> getMoves(Board &board);
 };
 
