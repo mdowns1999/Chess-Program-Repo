@@ -12,7 +12,7 @@ Piece::Piece()
    position.setCol(c);
 }
 
-Piece::Piece(int r, int c, bool white)
+Piece::Piece(int r, int c, bool white)  : Piece()
 {
    this->r = r;
    this->c = c;

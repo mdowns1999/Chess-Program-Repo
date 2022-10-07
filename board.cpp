@@ -1,5 +1,16 @@
 #include "board.h"
 
+Board::Board()
+{
+   
+
+   for (int i = 0; i < 64; i++)
+   {
+      board[i] = Piece();
+   }
+}
+
+
 /*****************************************************************
  * GET CURRENT MOVE
  * Get Current Move
@@ -55,19 +66,19 @@ void Board::reset()
  * MOVE
  * Move the Piece
  ****************************************************************/
-void Board::move(Move move)
-{
+//void Board::move(Move move)
+//{
 
-};
+//};
 
 /*****************************************************************
  * ASSIGN
  * Assign the Piece
  ****************************************************************/
-void Board::assign(Piece piece)
-{
+//void Board::assign(Piece piece)
+//{
 
-};
+//};
 
 /*****************************************************************
  * SWAP

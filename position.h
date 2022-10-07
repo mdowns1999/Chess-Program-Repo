@@ -1,4 +1,5 @@
 #pragma once
+
 class Position
 {
 private:
@@ -6,10 +7,12 @@ private:
    double squareHeight;
 
 
+
 public:
    int location;
 
    Position() { location = 0;};
+   Position(Position position, int move);
    int getLocation();
    int getRow();
    int getColumn();

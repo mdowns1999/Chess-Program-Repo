@@ -100,6 +100,7 @@
   <ItemGroup>
     <ClCompile Include="bishop.cpp" />
     <ClCompile Include="board.cpp" />
+    <ClCompile Include="Demo.cpp" />
     <ClCompile Include="king.cpp" />
     <ClCompile Include="knight.cpp" />
     <ClCompile Include="move.cpp" />
@@ -108,6 +109,7 @@
     <ClCompile Include="position.cpp" />
     <ClCompile Include="queen.cpp" />
     <ClCompile Include="rook.cpp" />
+    <ClCompile Include="space.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="uiDraw.cpp" />
     <ClCompile Include="uiInteract.cpp" />
@@ -123,6 +125,7 @@
     <ClInclude Include="position.h" />
     <ClInclude Include="queen.h" />
     <ClInclude Include="rook.h" />
+    <ClInclude Include="space.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="testPawn.h" />
     <ClInclude Include="testPiece.h" />

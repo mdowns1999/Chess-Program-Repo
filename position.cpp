@@ -1,5 +1,14 @@
 #include "position.h"
 
+Position::Position(Position position, int move)
+{
+   this->location = position.location + move;
+}
+
+
+
+
+
 /*****************************************************************
  * GET LOCATION
  * Returns the Location

@@ -4,16 +4,20 @@
 
 class Pawn: public Piece
 {
+private:
+   char letter;
+
 public:
-   //set<int> pawnMoves;
+   set<int> pawnMoves;
 
 
+   Pawn();
    //Constructor
-   Pawn(int r, int c, bool white) : Piece() {};
+   Pawn(int r, int c, bool white);
 
    //Inherited Functions
    char getLetter();
    //virtual void display() {};
-   //virtual set<int> getMoves() { return pawnMoves;};
+   set<int> getMoves();
 };
 

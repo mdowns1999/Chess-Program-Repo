@@ -24,11 +24,11 @@ public:
    Position getDes();
 
    //Getters
-   const char getPromotion() { return piece = 'P'; };
+   const char getPromotion() { return piece = 'P';       };
    const bool getEnpassant() { return enpassant = false; };
-   const bool getCastleK() { return castleK = false; };
-   const bool getCastleQ() { return castleQ = false; };
-   const bool getWhiteMove() { return isWhite = true; };
+   const bool getCastleK()   { return castleK = false;   };
+   const bool getCastleQ()   { return castleQ = false;   };
+   const bool getWhiteMove() { return isWhite = true;    };
 
    //Setters
    void setEnpassant();
