@@ -35,7 +35,7 @@ public:
    //Reset as a datatype?
    Board(ogstream& gout, void reset()) { };
    Board(Position pt) { this->pt = pt; };
-   Piece* getBoard() { return *board;};
+   Piece** getBoard() { return board;};
    int getCurrentMove();
    bool whiteTurn();
    void display(Position posHover, Position posSel);
