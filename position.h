@@ -21,6 +21,7 @@ public:
    bool isValid();
    void setRow(int r);
    void setCol(int c);
+   void setLocation(int l) { location = l; };
    void set(int r, int c);
    void adjustRow(int dRow);
    void adjustCol(int dCol);

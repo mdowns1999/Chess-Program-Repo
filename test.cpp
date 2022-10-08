@@ -13,8 +13,6 @@ void testRunner()
 {
    testPawn().run();
    testPiece().run();
-  // Board board;
-   //board.free();
    
    
 }

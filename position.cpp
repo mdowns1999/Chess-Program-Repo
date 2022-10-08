@@ -2,6 +2,8 @@
 
 Position::Position(Position position, int move)
 {
+   int x = position.location;
+
    this->location = position.location + move;
 }
 
@@ -70,7 +72,7 @@ bool Position::isValid()
 void Position::setRow(int r)
 {  
    int c = location % 8;
-   location = ((r - 1) * 8) + c;
+   this->location = ((r - 1) * 8) + c;
 };
 
 /*****************************************************************
@@ -80,7 +82,7 @@ void Position::setRow(int r)
 void Position::setCol(int c)
 {
    int r = location / 8;
-   location = (r * 8) + c;
+   this->location = (r * 8) + c;
 
 };
 

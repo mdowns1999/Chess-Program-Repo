@@ -19,6 +19,7 @@ public:
    Pawn(int r, int c, bool white);
 
    //Inherited Functions
+
    char getLetter();
    //virtual void display() {};
    set<int> getMoves(Board &board);

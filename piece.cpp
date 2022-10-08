@@ -22,9 +22,7 @@ Piece::Piece(int r, int c, bool white)
    this->lastMove = 0;
    this->position.setRow(r);
    this->position.setCol(c);
-   letter = 'u';
-
-   cout << "Before Letter: " << letter << endl;    
+   letter = 'u';  
 
 };
 

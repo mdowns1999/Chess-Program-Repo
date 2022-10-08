@@ -1,6 +1,7 @@
 #pragma once
 #include "position.h"
 #include "board.h"
+#include "move.h"
 #include<set>
 using namespace std;
 
@@ -36,6 +37,7 @@ public:
    int getNMoves();
    Position getPosition();
    bool justMoved();
+   void setNMove(int moves) { nMove = moves; }
 
    //Virtual Functions for Inheritance
    virtual char getLetter() { return letter; }

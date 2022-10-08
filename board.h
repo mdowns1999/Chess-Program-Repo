@@ -32,6 +32,7 @@ private:
 
 public:
    Board();
+
    //Reset as a datatype?
    Board(ogstream& gout, void reset()) { };
    Board(Position pt) { this->pt = pt; };

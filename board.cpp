@@ -2,8 +2,6 @@
 
 Board::Board()
 {
-
-   cout << "Populate Board" << endl;
    for (int i = 0; i < 64; i++)
    {
       int r = i / 8 + 1;
