@@ -13,7 +13,6 @@ private:
 public:
    set<int> pawnMoves;
 
-
    Pawn();
    //Constructor
    Pawn(int r, int c, bool white);

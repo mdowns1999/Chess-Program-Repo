@@ -13,8 +13,7 @@ void testRunner()
 {
    testPawn().run();
    testPiece().run();
-   
-   
+
 }
 
 int main()

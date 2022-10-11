@@ -1,15 +1,15 @@
 #include "pawn.h"
 
-Pawn::Pawn()
-{
-   r = 1;
-   c = 0;
-   fWhite = true;
-   nMove = 0;
-   lastMove = 0;
-   position.setRow(r);
-   position.setCol(c);
-};
+//Pawn::Pawn()
+//{
+//   r = 1;
+//   c = 0;
+//   fWhite = true;
+//   nMove = 0;
+//   lastMove = 0;
+//   position.setRow(r);
+//   position.setCol(c);
+//};
 
 Pawn::Pawn(int r, int col, bool white)  
 {
