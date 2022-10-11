@@ -2,6 +2,7 @@
 #include "position.h"
 #include "board.h"
 #include "move.h"
+#include "uiDraw.h"
 #include<set>
 using namespace std;
 
@@ -41,7 +42,7 @@ public:
 
    //Virtual Functions for Inheritance
    virtual char getLetter() { return letter; }
-   //virtual void display() {}
+   virtual void display(ogstream &gout) {}
    virtual set<int> getMoves(Board& board) { return set<int>(); }
 };
 

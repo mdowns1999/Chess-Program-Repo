@@ -20,7 +20,7 @@ public:
    //Inherited Functions
 
    char getLetter();
-   //virtual void display() {};
+   virtual void display(ogstream &gout);
    set<int> getMoves(Board &board);
 };
 

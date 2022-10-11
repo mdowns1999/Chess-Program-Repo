@@ -24,7 +24,6 @@ class Board
 {
 private:
    Piece *board[64];
-   //Piece board[64];
    int currentMove;
    Position pt;
    ogstream gout;

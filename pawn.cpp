@@ -60,52 +60,57 @@ char Pawn::getLetter()
 
    
    //Attack Left
-   if (posMove.getColumn() >= 1)
-   {
-      posMove.setCol(posMove.getColumn() - 1);
+   // if (posMove.getColumn() >= 1)
+   // {
+   //    posMove.setCol(posMove.getColumn() - 1);
 
-      if (board.getBoard()[posMove.getLocation()]->getLetter() != letter && board.getBoard()[posMove.getLocation()]->getLetter() != 'u')
-      {
-         pawnMoves.insert(posMove.getLocation());
-      }
+   //    if (board.getBoard()[posMove.getLocation()]->getLetter() != letter && board.getBoard()[posMove.getLocation()]->getLetter() != 'u')
+   //    {
+   //       pawnMoves.insert(posMove.getLocation());
+   //    }
 
-      posMove.setRow(posMove.getRow() + fWhite ? 1 : -1);
+   //    posMove.setRow(posMove.getRow() + fWhite ? 1 : -1);
 
-      if (board.getBoard()[posMove.getLocation()]->getLetter() != board.getBoard()[posMove.getLocation()]->isWhite() ? 'P' : 'p')
-      {
-         if (board.getBoard()[posMove.getLocation()]->getNMoves() == 1)
-         {
-            pawnMoves.insert(posMove.getLocation());
-         }
-      }
+   //    if (board.getBoard()[posMove.getLocation()]->getLetter() != board.getBoard()[posMove.getLocation()]->isWhite() ? 'P' : 'p')
+   //    {
+   //       if (board.getBoard()[posMove.getLocation()]->getNMoves() == 1)
+   //       {
+   //          pawnMoves.insert(posMove.getLocation());
+   //       }
+   //    }
 
-      posMove.setRow(posMove.getRow() + fWhite ? -1 : -1);
-      posMove.setCol(posMove.getColumn() + 1);
-   }
+   //    posMove.setRow(posMove.getRow() + fWhite ? -1 : -1);
+   //    posMove.setCol(posMove.getColumn() + 1);
+   // }
 
-   //Attack Right
-   if (posMove.getColumn() <= 7)
-   {
-      posMove.setCol(posMove.getColumn() + 1);
+   // //Attack Right
+   // if (posMove.getColumn() <= 7)
+   // {
+   //    posMove.setCol(posMove.getColumn() + 1);
 
-      if (board.getBoard()[posMove.getLocation()]->getLetter() != letter && board.getBoard()[posMove.getLocation()]->getLetter() != 'u')
-      {
-         pawnMoves.insert(posMove.getLocation());
-      }
+   //    if (board.getBoard()[posMove.getLocation()]->getLetter() != letter && board.getBoard()[posMove.getLocation()]->getLetter() != 'u')
+   //    {
+   //       pawnMoves.insert(posMove.getLocation());
+   //    }
 
-      posMove.setRow(fWhite ? 1 : -1);
+   //    posMove.setRow(fWhite ? 1 : -1);
 
-      if (board.getBoard()[posMove.getLocation()]->getLetter() != board.getBoard()[posMove.getLocation()]->isWhite() ? 'P' : 'p')
-      {
-         if (board.getBoard()[posMove.getLocation()]->getNMoves() == 1)
-         {
-            pawnMoves.insert(board.getBoard()[posMove.getLocation()]->isWhite() ? posMove.getLocation() - 8 : posMove.getLocation() + 8);
-         }
-      }
+   //    if (board.getBoard()[posMove.getLocation()]->getLetter() != board.getBoard()[posMove.getLocation()]->isWhite() ? 'P' : 'p')
+   //    {
+   //       if (board.getBoard()[posMove.getLocation()]->getNMoves() == 1)
+   //       {
+   //          pawnMoves.insert(board.getBoard()[posMove.getLocation()]->isWhite() ? posMove.getLocation() - 8 : posMove.getLocation() + 8);
+   //       }
+   //    }
 
-      posMove.setRow(fWhite ? -1 : 1);
-      posMove.setCol(posMove.getColumn() - 1);
-   }
+   //    posMove.setRow(fWhite ? -1 : 1);
+   //    posMove.setCol(posMove.getColumn() - 1);
+   // }
 
     return pawnMoves;
+ };
+
+ void Pawn::display(ogstream &gout) 
+ {
+    gout.drawPawn(position.getLocation(), fWhite);
  };
