@@ -19,8 +19,8 @@ private:
 public:
    Move(); //Constructor
    string getText();
-   Position getSrc();
-   Position getDes();
+   Position getSrc() { return source; };
+   Position getDes() { return dest; };
 
    //Getters
    const char getPromotion() { return piece = 'P';       };

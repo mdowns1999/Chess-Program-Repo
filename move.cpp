@@ -5,17 +5,6 @@ string Move::getText()
    return "A5B6";
 };
 
-Position Move::getSrc()
-{
-   return source;
-};
-
-Position Move::getDes()
-{
-   return dest;
-};
-
-
 void Move::setEnpassant()
 {
 

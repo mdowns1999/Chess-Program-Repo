@@ -1,6 +1,7 @@
 #include "uiInteract.h"
 #include "board.h"
 #include "pawn.h"
+#include "move.h" //REMOVE LATER??
 #include <set>
 #include <iostream>
 using namespace std;
@@ -31,11 +32,12 @@ void draw( Piece** board, const Interface& ui, const set <int>& possible)
       board[itPiece]->display(gout);
    }
 
-   for (int itPiece1 = 0; itPiece1 < 64; ++itPiece1)
-   {
-      cout << board[itPiece1]->getLetter() << endl;
-   }
+   // for (int itPiece1 = 0; itPiece1 < 64; ++itPiece1)
+   // {
+   //    cout << board[itPiece1]->getLetter() << endl;
+   // }
 
+   
 
    // draw the pieces
    // for (int i = 0; i < 64; i++)
@@ -93,7 +95,31 @@ void callBack(Interface* pUI, void *p)
    set <int> possible;
    Board* pBoard = (Board*)p;
 
-   possible = pBoard->getBoard()[12]->getMoves(*pBoard);
+   //This will get the user's Selected Position
+   int prevLocation = pUI->getPreviousPosition();
+   int location = pUI->getSelectPosition();
+
+
+   cout << "Old: "<< prevLocation << endl;
+   cout << "Current: "<<location << endl;
+   if (prevLocation != -1)
+       possible = pBoard->getBoard()[prevLocation]->getMoves(*pBoard);
+
+
+
+
+
+
+   set <int> ::iterator it;
+   for (it = possible.begin(); it != possible.end(); ++it)
+   {
+     cout << location << endl;
+     if (*it == location)
+     {
+        cout << "Move!!!!!!!!!!!!!" << endl;
+     }
+   }
+
 
    draw(pBoard->getBoard(), *pUI, possible);
    
@@ -128,8 +154,13 @@ int main()
 
    void* p;
    p = &board;
-   Pawn pawn(2, 4, true); 
+
+   Pawn pawn(2, 4, true);
+   cout << pawn.getPosition().getLocation() << endl;
    board.getBoard()[pawn.getPosition().getLocation()] = &pawn;
+
+   Pawn pawn2(3, 5, false);
+   board.getBoard()[pawn2.getPosition().getLocation()] = &pawn2;
 
 
    // Initialize the game class

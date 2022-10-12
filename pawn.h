@@ -11,7 +11,6 @@ private:
    char letter;
 
 public:
-   set<int> pawnMoves;
 
    //Pawn();
    //Constructor

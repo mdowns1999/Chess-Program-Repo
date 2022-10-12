@@ -13,12 +13,13 @@
 #include "piece.h"
 
 //#include "space.h"
-//#include "move.h"
+#include "move.h"
 #include "uiDraw.h"
 #include <iostream>
 using namespace std;
 
 class Piece;
+class Move;
 
 class Board
 {
@@ -42,7 +43,7 @@ public:
    //Piece get(Position pt);
    void free();
    void reset();
-   //void move(Move move);
+   void move(Move move);
    //void assign(Piece piece);
 
 private:

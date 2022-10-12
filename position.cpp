@@ -35,7 +35,7 @@ int Position::getRow()
  ****************************************************************/
 int Position::getColumn()
 {
-   return location % 8;
+   return location % 8 + 1;
 };
 
 /*****************************************************************
@@ -62,7 +62,7 @@ int Position::getY()
  ****************************************************************/
 bool Position::isValid()
 {
-   return (location >= 1 && location <= 64);
+   return (location >= 0 && location <= 63);
 };
 
 /*****************************************************************
@@ -82,7 +82,7 @@ void Position::setRow(int r)
 void Position::setCol(int c)
 {
    int r = location / 8;
-   this->location = (r * 8) + c;
+   this->location = (r * 8) + c - 1;
 
 };
 
