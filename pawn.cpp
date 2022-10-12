@@ -13,13 +13,12 @@
 
 Pawn::Pawn(int r, int col, bool white)  
 {
-   this->r = r;
-   this->c = col;
+
    this->fWhite = white;
    this->nMove = 0;
    this->lastMove = 0;
    position.setRow(r);
-   position.setCol(c);
+   position.setCol(col);
    //int x = ((r - 1) * 8) + c;
    //position.setLocation(((r - 1) * 8) + c);
 

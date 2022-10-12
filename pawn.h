@@ -13,9 +13,9 @@ private:
 public:
    set<int> pawnMoves;
 
-   Pawn();
+   //Pawn();
    //Constructor
-   Pawn(int r, int c, bool white);
+   Pawn(int r, int col, bool white);
 
    //Inherited Functions
 

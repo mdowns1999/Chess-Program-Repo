@@ -91,8 +91,10 @@ void callBack(Interface* pUI, void *p)
 {
 
    set <int> possible;
-
    Board* pBoard = (Board*)p;
+
+   possible = pBoard->getBoard()[12]->getMoves(*pBoard);
+
    draw(pBoard->getBoard(), *pUI, possible);
    
 

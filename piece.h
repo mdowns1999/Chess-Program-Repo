@@ -18,8 +18,8 @@ protected:
    bool fWhite;
    int nMove;
    int lastMove;
-   int r;
-   int c;
+   //int r;
+   //int c;
    char letter = 'u';
    //Board board;
 

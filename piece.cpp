@@ -3,20 +3,17 @@
 
 Piece::Piece()
 {
-   r = 1;
-   c = 0;
    fWhite = true;
    nMove = 0;
    lastMove = 0;
-   position.setRow(r);
-   position.setCol(c);
+   //position.setRow(r);
+   //position.setCol(c);
    letter = 'u';
 }
 
 Piece::Piece(int r, int c, bool white) 
 {
-   this->r = r;
-   this->c = c;
+
    this->fWhite = white;
    this->nMove = 0;
    this->lastMove = 0;
@@ -36,8 +33,8 @@ void Piece::assign(Position position)
    this->position.setRow(position.getRow());
    this->position.setCol(position.getColumn());
 
-   this->r = position.getRow();
-   this->c = position.getColumn();
+   /*this->r = position.getRow();
+   this->c = position.getColumn();*/
 
    nMove++;
 };
@@ -48,11 +45,8 @@ void Piece::assign(Position position)
  ****************************************************************/
 void Piece::assign(Piece piece)
 {
-   this->r = piece.r;
-   this->c = piece.c;
 
-   this->position.setRow(piece.r);
-   this->position.setCol(piece.c);
+   this->position = piece.position;
    this->fWhite = piece.fWhite;
 
 };
