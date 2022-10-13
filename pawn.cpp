@@ -51,10 +51,9 @@ char Pawn::getLetter()
       pawnMoves.insert(posMove.getLocation());
 
    //   //Basic move 2 up. NOTE FIX LOGIC OF IS VALID
-     if (posMove.isValid() && board.getBoard()[posMove.getLocation() + (fWhite ? 8 : -8)]->getLetter() == 'u')
+     if (posMove.isValid() && board.getBoard()[posMove.getLocation() + (fWhite ? 8 : -8)]->getLetter() == 'u' && nMove == 0)
      {
         pawnMoves.insert(posMove.getLocation() + (fWhite ? 8 : -8));
-
      }
 
    }

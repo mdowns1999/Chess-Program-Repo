@@ -11,8 +11,8 @@ using namespace std;
  ****************************************************************/
 void testRunner()
 {
-   testPawn().run();
-   testPiece().run();
+   //testPawn().run();
+   //testPiece().run();
 
 }
 

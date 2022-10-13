@@ -82,7 +82,7 @@ void Position::setRow(int r)
 void Position::setCol(int c)
 {
    int r = location / 8;
-   this->location = (r * 8) + c - 1;
+   this->location = (r * 8) + c;
 
 };
 

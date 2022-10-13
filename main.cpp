@@ -1,10 +1,53 @@
 #include "uiInteract.h"
 #include "board.h"
 #include "pawn.h"
-#include "move.h" //REMOVE LATER??
+#include "king.h"
+#include "queen.h"
+#include "bishop.h"
+#include "knight.h"
+#include "rook.h"
+
+//#include "move.h" //REMOVE LATER??
 #include <set>
 #include <iostream>
 using namespace std;
+
+/*********************************************
+ * MOVE
+ * Execute one movement. Return TRUE if successful
+ *********************************************/
+bool move(Board* board, int positionFrom, int positionTo)
+{
+   // do not move if a move was not indicated
+   if (positionFrom == -1 || positionTo == -1)
+     return false;
+
+   // find the set of possible moves from our current location
+   set <int> possiblePrevious = board->getBoard()[positionFrom]->getMoves(*board);
+
+   // only move there is the suggested move is on the set of possible moves
+   if (possiblePrevious.find(positionTo) != possiblePrevious.end())
+   {
+      cout << "POSITION FROM:" << positionFrom << endl;
+      cout << "POSITION TO:" << positionTo << endl;
+      cout << "Old piece: " << board->getBoard()[positionTo]->getPosition().getLocation() << endl;
+     board->getBoard()[positionFrom]->assign(board->getBoard()[positionTo]->getPosition());
+     board->getBoard()[positionTo] = board->getBoard()[positionFrom];
+
+     int r = board->getBoard()[positionFrom]->getPosition().getLocation() / 8 + 1;
+     int c = board->getBoard()[positionFrom]->getPosition().getLocation() % 8 + 1;
+
+     cout << r << endl;
+     cout << c << endl;
+
+     board->getBoard()[positionFrom] = new Piece(r, c, true);
+
+     return true;
+   }
+
+   return false;
+
+}
 
 /***************************************************
 //  * DRAW
@@ -37,49 +80,6 @@ void draw( Piece** board, const Interface& ui, const set <int>& possible)
    //    cout << board[itPiece1]->getLetter() << endl;
    // }
 
-   
-
-   // draw the pieces
-   // for (int i = 0; i < 64; i++)
-   //    switch (board[i])
-   //    {
-   //    case 'P':
-   //       gout.drawPawn(i, true);
-   //       break;
-   //    case 'p':
-   //       gout.drawPawn(i, false);
-   //       break;
-   //    case 'K':
-   //       gout.drawKing(i, true);
-   //       break;
-   //    case 'k':
-   //       gout.drawKing(i, false);
-   //       break;
-   //    case 'Q':
-   //       gout.drawQueen(i, true);
-   //       break;
-   //    case 'q':
-   //       gout.drawQueen(i, false);
-   //       break;
-   //    case 'R':
-   //       gout.drawRook(i, true);
-   //       break;
-   //    case 'r':
-   //       gout.drawRook(i, false);
-   //       break;
-   //    case 'B':
-   //       gout.drawBishop(i, true);
-   //       break;
-   //    case 'b':
-   //       gout.drawBishop(i, false);
-   //       break;
-   //    case 'N':
-   //       gout.drawKnight(i, true);
-   //       break;
-   //    case 'n':
-   //       gout.drawKnight(i, false);
-   //       break;
-   //    }
 }
 
 /*************************************
@@ -91,48 +91,25 @@ void draw( Piece** board, const Interface& ui, const set <int>& possible)
  **************************************/
 void callBack(Interface* pUI, void *p)
 {
-
    set <int> possible;
    Board* pBoard = (Board*)p;
-
    //This will get the user's Selected Position
    int prevLocation = pUI->getPreviousPosition();
-   int location = pUI->getSelectPosition();
+   int currLocation = pUI->getSelectPosition();
 
 
-   cout << "Old: "<< prevLocation << endl;
-   cout << "Current: "<<location << endl;
-   if (prevLocation != -1)
-       possible = pBoard->getBoard()[prevLocation]->getMoves(*pBoard);
+      // move 
+      if (move(pBoard, prevLocation, currLocation))
+         pUI->clearSelectPosition();
+      else if (currLocation != -1)
+         possible = pBoard->getBoard()[currLocation]->getMoves(*pBoard);
 
+      // if we clicked on a blank spot, then it is not selected
+      if (currLocation != -1 && pBoard->getBoard()[currLocation]->getLetter() == 'u')
+         pUI->clearSelectPosition();
 
-
-
-
-
-   set <int> ::iterator it;
-   for (it = possible.begin(); it != possible.end(); ++it)
-   {
-     cout << location << endl;
-     if (*it == location)
-     {
-        cout << "Move!!!!!!!!!!!!!" << endl;
-     }
-   }
-
-
-   draw(pBoard->getBoard(), *pUI, possible);
-   
-
-  
-
-  
-
-
-    
-
- 
-
+      // draw the board
+      draw(pBoard->getBoard(), *pUI, possible);
 
 }
 
@@ -152,6 +129,76 @@ int main()
    Interface ui("Chess");
    Board board;
 
+   //SET CHESS PIECES
+   //WHITE PIECES
+   Rook wRook1(8, 7, false);
+   board.getBoard()[wRook1.getPosition().getLocation()] = &wRook1;
+   Knight wKnight1(8, 6, false);
+   board.getBoard()[wKnight1.getPosition().getLocation()] = &wKnight1;
+   Bishop wBishop1(8, 5, false);
+   board.getBoard()[wBishop1.getPosition().getLocation()] = &wBishop1;
+   King wKing(4, 4, false);
+   board.getBoard()[wKing.getPosition().getLocation()] = &wKing;
+   Queen wQueen(8, 3, false);
+   board.getBoard()[wQueen.getPosition().getLocation()] = &wQueen;
+   Bishop wBishop2(8, 2, false);
+   board.getBoard()[wBishop2.getPosition().getLocation()] = &wBishop2;
+   Knight wKnight2(8, 1, false);
+   board.getBoard()[wKnight2.getPosition().getLocation()] = &wKnight2;
+   Rook wRook2(8, 0, false);
+   board.getBoard()[wRook2.getPosition().getLocation()] = &wRook2;
+
+   for(int i = 0; i < 8; i++)
+   {
+      Pawn* pPawn = new Pawn(7, i, false);
+      board.getBoard()[pPawn->getPosition().getLocation()] = pPawn;  
+   }
+
+ 
+
+   //BLACK PIECES
+   King bKing(1, 4, true);
+   board.getBoard()[bKing.getPosition().getLocation()] = &bKing;
+   Queen bQueen(1, 3, true);
+   board.getBoard()[bQueen.getPosition().getLocation()] = &bQueen;
+   Bishop bBishop1(1, 2, true);
+   board.getBoard()[bBishop1.getPosition().getLocation()] = &bBishop1;
+   Bishop bBishop2(1, 5, true);
+   board.getBoard()[bBishop2.getPosition().getLocation()] = &bBishop2;
+   Rook bRook1(1, 7, true);
+   board.getBoard()[bRook1.getPosition().getLocation()] = &bRook1;
+   Rook bRook2(1, 0, true);
+   board.getBoard()[bRook2.getPosition().getLocation()] = &bRook2;
+   Knight bKnight1(1, 1, true);
+   board.getBoard()[bKnight1.getPosition().getLocation()] = &bKnight1;
+   Knight bKnight2(1, 6, true);
+   board.getBoard()[bKnight2.getPosition().getLocation()] = &bKnight2;
+  
+  
+   for (int i = 0; i < 8; i++)
+   {
+      Pawn* pPawn = new Pawn(2, i, true);
+      board.getBoard()[pPawn->getPosition().getLocation()] = pPawn;
+   }
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    void* p;
    p = &board;
 
@@ -159,7 +206,7 @@ int main()
    cout << pawn.getPosition().getLocation() << endl;
    board.getBoard()[pawn.getPosition().getLocation()] = &pawn;
 
-   Pawn pawn2(3, 5, false);
+   Pawn pawn2(7, 5, false);
    board.getBoard()[pawn2.getPosition().getLocation()] = &pawn2;
 
 

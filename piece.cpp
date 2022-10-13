@@ -3,7 +3,7 @@
 
 Piece::Piece()
 {
-   fWhite = true;
+   fWhite = false;
    nMove = 0;
    lastMove = 0;
    //position.setRow(r);
@@ -30,8 +30,7 @@ Piece::Piece(int r, int c, bool white)
 void Piece::assign(Position position)
 {
 
-   this->position.setRow(position.getRow());
-   this->position.setCol(position.getColumn());
+   this->position = position;
 
    /*this->r = position.getRow();
    this->c = position.getColumn();*/

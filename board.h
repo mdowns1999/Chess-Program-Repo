@@ -13,9 +13,12 @@
 #include "piece.h"
 
 //#include "space.h"
-#include "move.h"
+//#include "move.h"
+
 #include "uiDraw.h"
 #include <iostream>
+//#include "pawn.h"
+//#include "piece.h"
 using namespace std;
 
 class Piece;

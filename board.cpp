@@ -1,5 +1,6 @@
 #include "board.h"
 
+
 Board::Board()
 {
    for (int i = 0; i < 64; i++)
@@ -10,6 +11,13 @@ Board::Board()
       Piece* piece = new Piece(r, c, true);
       board[i] = piece;
    }
+
+   //Pawn pawn(2, 4, true);
+   //cout << pawn.getPosition().getLocation() << endl;
+   //board[pawn.getPosition().getLocation()] = &pawn;
+
+   //Pawn pawn2(3, 5, false);
+   //board[pawn2.getPosition().getLocation()] = &pawn2;
 
 };
 

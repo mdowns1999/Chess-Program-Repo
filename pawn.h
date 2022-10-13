@@ -2,7 +2,6 @@
 #include "piece.h"
 #include "board.h"
 #include <set>
-
 using namespace std;
 
 class Pawn: public Piece
