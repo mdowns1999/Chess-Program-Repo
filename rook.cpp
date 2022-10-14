@@ -39,28 +39,40 @@ set<int> Rook::getMoves(Board& board)
 
    M moveStruct[4] =
    {
-               {8},
+ /*              {8},
          {-1},      {1},
-               {-8}
+               {-8}*/
+          {8},{-1},{1},{-8}
 
    };
-
+   
+   Position posMove(position, 0);
    //OWN FUNCTION
    for (int i = 0; i < 4; i++)
    {
       //cout << moveStruct[i].move << endl;
-      Position posMove(position, moveStruct[i].move);
+      
+      posMove.setLocation(position.getLocation() + moveStruct[i].move);
 
+      if (posMove.isValid() && (board.getBoard()[posMove.getLocation()]->getLetter() == 'u' || 
+         board.getBoard()[posMove.getLocation()]->isWhite() != fWhite))
+      {
+         rookMoves.insert(posMove.getLocation());
+      }
 
-      // position.getLocation() + (moveStruct[i].move * j) >= 0 && position.getLocation() + (moveStruct[i].move * j) <= 63 
-       for(int j = 1;posMove.isValid() &&
-       board.getBoard()[posMove.getLocation()]->getLetter() == 'u'; j++)
-       {
-          rookMoves.insert(posMove.getLocation());
-          if (posMove.isValid(moveStruct[i].move))
+      while (posMove.isValid(moveStruct[i].move) &&
+       board.getBoard()[posMove.getLocation()]->getLetter() == 'u' )
+      {
+         if (board.getBoard()[posMove.getLocation()]->isWhite() != fWhite || 
+            board.getBoard()[posMove.getLocation()]->getLetter() == 'u')
+         {
+            cout <<"COLOR: " << board.getBoard()[posMove.getLocation()]->isWhite() << endl;
             posMove.addLocation(moveStruct[i].move);
-         
-       }
+            rookMoves.insert(posMove.getLocation());
+         }
+      }
+      // position.getLocation() + (moveStruct[i].move * j) >= 0 && position.getLocation() + (moveStruct[i].move * j) <= 63 
+
    }
 
    return rookMoves;

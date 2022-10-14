@@ -33,48 +33,43 @@ Get the Moves for the Chess Piece
 *************************************/
 set<int> Bishop::getMoves(Board& board)
 {
-   set<int> moves;
+   set<int> bishopMoves;
 
-   Position posMove(position, fWhite ? 8 : -8);
-
-   //Basic move 1 up
-
-   if (posMove.isValid() && board.getBoard()[posMove.getLocation()]->getLetter() == 'u')
+   M moveStruct[4] =
    {
-      moves.insert(posMove.getLocation());
+        {7}, {9},
+        {-7},  {-9}
 
-      //   //Basic move 2 up. NOTE FIX LOGIC OF IS VALID
-      if (posMove.isValid() && board.getBoard()[posMove.getLocation() + (fWhite ? 8 : -8)]->getLetter() == 'u')
+
+   };
+
+
+   Position posMove(position, 0);
+   //OWN FUNCTION
+   for (int i = 0; i < 4; i++)
+   {
+      //cout << moveStruct[i].move << endl;
+      
+      posMove.setLocation(position.getLocation() + moveStruct[i].move);
+
+      if (posMove.isValid() && (board.getBoard()[posMove.getLocation()]->getLetter() == 'u' || board.getBoard()[posMove.getLocation()]->isWhite() != fWhite))
       {
-         moves.insert(posMove.getLocation() + (fWhite ? 8 : -8));
-
+         bishopMoves.insert(posMove.getLocation());
       }
 
-   }
-
-
-   //Attack Left
-   if (posMove.getColumn() > 1)
-   {
-      //posMove.setCol(posMove.getColumn() - 1);
-
-      if (board.getBoard()[posMove.getLocation() - 1]->isWhite() != fWhite && board.getBoard()[posMove.getLocation() - 1]->getLetter() != 'u')
+      while (posMove.isValid(moveStruct[i].move) &&
+       board.getBoard()[posMove.getLocation()]->getLetter() == 'u' )
       {
-         moves.insert(posMove.getLocation() - 1);
-      }
-
-   }
-
-   // //Attack Right
-   if (posMove.getColumn() < 8)
-   {
-      if (board.getBoard()[posMove.getLocation() + 1]->isWhite() != fWhite && board.getBoard()[posMove.getLocation() + 1]->getLetter() != 'u')
-      {
-         moves.insert(posMove.getLocation() + 1);
+         if (board.getBoard()[posMove.getLocation()]->isWhite() != fWhite || board.getBoard()[posMove.getLocation()]->getLetter() == 'u')
+         {
+            cout <<"COLOR: " << board.getBoard()[posMove.getLocation()]->isWhite() << endl;
+            posMove.addLocation(moveStruct[i].move);
+            bishopMoves.insert(posMove.getLocation());
+         }
       }
    }
 
-   return moves;
+   return bishopMoves;
 };
 
 /*************************************

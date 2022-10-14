@@ -28,19 +28,40 @@ bool move(Board* board, int positionFrom, int positionTo)
    // only move there is the suggested move is on the set of possible moves
    if (possiblePrevious.find(positionTo) != possiblePrevious.end())
    {
-      cout << "POSITION FROM:" << positionFrom << endl;
-      cout << "POSITION TO:" << positionTo << endl;
-      cout << "Old piece: " << board->getBoard()[positionTo]->getPosition().getLocation() << endl;
-     board->getBoard()[positionFrom]->assign(board->getBoard()[positionTo]->getPosition());
-     board->getBoard()[positionTo] = board->getBoard()[positionFrom];
+      // Piece *pMover = board->getBoard()[positionFrom];
+      // Piece *pKilled = board->getBoard()[positionTo];
 
-     int r = board->getBoard()[positionFrom]->getPosition().getLocation() / 8 + 1;
-     int c = board->getBoard()[positionFrom]->getPosition().getLocation() % 8 + 1;
+      // New Piece
+      int row = board->getBoard()[positionFrom]->getPosition().getRow();
+      int col = board->getBoard()[positionFrom]->getPosition().getColumn();
+      Piece* pPiece = new Piece(row, col, true);
+      
 
-     cout << r << endl;
-     cout << c << endl;
+      //Swap locations of the objects
+       Position storePos = board->getBoard()[positionFrom]->getPosition();
+       board->getBoard()[positionFrom]->assign(board->getBoard()[positionTo]->getPosition());
+       board->getBoard()[positionTo]->assign(storePos);
 
-     board->getBoard()[positionFrom] = new Piece(r, c, true);
+      // Swap Pointers
+       board->getBoard()[positionTo],board->getBoard()[positionFrom] = board->getBoard()[positionFrom],board->getBoard()[positionTo];
+      
+      // Delete old object
+       delete board->getBoard()[positionFrom];
+       board->getBoard()[positionFrom] = pPiece;
+      
+
+   //   board->getBoard()[positionFrom]->assign(board->getBoard()[positionTo]->getPosition());
+   //   board->getBoard()[positionTo] = board->getBoard()[positionFrom];
+
+   //   int r = board->getBoard()[positionFrom]->getPosition().getLocation() / 8 + 1;
+   //   int c = board->getBoard()[positionFrom]->getPosition().getLocation() % 8 + 1;
+
+   //   cout << r << endl;
+   //   cout << c << endl;
+
+   //   board->getBoard()[positionFrom] = new Piece(r, c, true);
+
+      
 
      return true;
    }
@@ -74,11 +95,6 @@ void draw( Piece** board, const Interface& ui, const set <int>& possible)
    {
       board[itPiece]->display(gout);
    }
-
-   // for (int itPiece1 = 0; itPiece1 < 64; ++itPiece1)
-   // {
-   //    cout << board[itPiece1]->getLetter() << endl;
-   // }
 
 }
 
@@ -131,22 +147,22 @@ int main()
 
    //SET CHESS PIECES
    //WHITE PIECES
-   Rook wRook1(8, 7, false);
-   board.getBoard()[wRook1.getPosition().getLocation()] = &wRook1;
-   Knight wKnight1(8, 6, false);
-   board.getBoard()[wKnight1.getPosition().getLocation()] = &wKnight1;
-   Bishop wBishop1(8, 5, false);
-   board.getBoard()[wBishop1.getPosition().getLocation()] = &wBishop1;
-   King wKing(8, 4, false);
-   board.getBoard()[wKing.getPosition().getLocation()] = &wKing;
-   Queen wQueen(8, 3, false);
-   board.getBoard()[wQueen.getPosition().getLocation()] = &wQueen;
-   Bishop wBishop2(8, 2, false);
-   board.getBoard()[wBishop2.getPosition().getLocation()] = &wBishop2;
-   Knight wKnight2(8, 1, false);
-   board.getBoard()[wKnight2.getPosition().getLocation()] = &wKnight2;
-   Rook wRook2(4, 4, false);
-   board.getBoard()[wRook2.getPosition().getLocation()] = &wRook2;
+   Rook* pWRook1 = new Rook(8, 7, false);
+   board.getBoard()[pWRook1->getPosition().getLocation()] = pWRook1;
+   Knight* pWKnight1 = new Knight(8, 6, false);
+   board.getBoard()[pWKnight1->getPosition().getLocation()] = pWKnight1;
+   Bishop* pWBishop1 = new Bishop(8, 5, false);
+   board.getBoard()[pWBishop1->getPosition().getLocation()] = pWBishop1;
+   King* pWKing = new King(8, 4, false);
+   board.getBoard()[pWKing->getPosition().getLocation()] = pWKing;
+   Queen* pWQueen = new Queen(8, 3, false);
+   board.getBoard()[pWQueen->getPosition().getLocation()] = pWQueen;
+   Bishop* pWBishop2 = new Bishop(8, 2, false);
+   board.getBoard()[pWBishop2->getPosition().getLocation()] = pWBishop2;
+   Knight* pWKnight2 = new Knight(8, 1, false);
+   board.getBoard()[pWKnight2->getPosition().getLocation()] = pWKnight2;
+   Rook* pWRook2 = new Rook(8, 0, false);
+   board.getBoard()[pWRook2->getPosition().getLocation()] = pWRook2;
 
    for(int i = 0; i < 8; i++)
    {
@@ -157,29 +173,30 @@ int main()
  
 
    //BLACK PIECES
-   King bKing(1, 4, true);
-   board.getBoard()[bKing.getPosition().getLocation()] = &bKing;
-   Queen bQueen(1, 3, true);
-   board.getBoard()[bQueen.getPosition().getLocation()] = &bQueen;
-   Bishop bBishop1(1, 2, true);
-   board.getBoard()[bBishop1.getPosition().getLocation()] = &bBishop1;
-   Bishop bBishop2(1, 5, true);
-   board.getBoard()[bBishop2.getPosition().getLocation()] = &bBishop2;
-   Rook bRook1(1, 7, true);
-   board.getBoard()[bRook1.getPosition().getLocation()] = &bRook1;
-   Rook bRook2(1, 0, true);
-   board.getBoard()[bRook2.getPosition().getLocation()] = &bRook2;
-   Knight bKnight1(1, 1, true);
-   board.getBoard()[bKnight1.getPosition().getLocation()] = &bKnight1;
-   Knight bKnight2(1, 6, true);
-   board.getBoard()[bKnight2.getPosition().getLocation()] = &bKnight2;
+   King* pBKing = new King(1, 4, true);
+   board.getBoard()[pBKing->getPosition().getLocation()] = pBKing;
+   //Queen was at r 1
+   Queen* pBQueen = new Queen(1, 3, true);
+   board.getBoard()[pBQueen->getPosition().getLocation()] = pBQueen;
+   Bishop* pbBishop1 = new Bishop(1, 2, true);
+   board.getBoard()[pbBishop1->getPosition().getLocation()] = pbBishop1;
+   Bishop* pbBishop2 = new Bishop(1, 5, true);
+   board.getBoard()[pbBishop2->getPosition().getLocation()] = pbBishop2;
+   Rook* pBRook1 = new Rook(1, 7, true);
+   board.getBoard()[pBRook1->getPosition().getLocation()] = pBRook1;
+   Rook* pBRook2 = new Rook(1, 0, true);
+   board.getBoard()[pBRook2->getPosition().getLocation()] = pBRook2;
+   Knight* pBKnight1 = new Knight(1, 1, true);
+   board.getBoard()[pBKnight1->getPosition().getLocation()] = pBKnight1;
+   Knight* pBKnight2 = new Knight(1, 6, true);
+   board.getBoard()[pBKnight2->getPosition().getLocation()] = pBKnight2;
   
   
-   for (int i = 0; i < 8; i++)
-   {
-      Pawn* pPawn = new Pawn(2, i, true);
-      board.getBoard()[pPawn->getPosition().getLocation()] = pPawn;
-   }
+   // for (int i = 0; i < 8; i++)
+   // {
+   //    Pawn* pPawn = new Pawn(2, i, true);
+   //    board.getBoard()[pPawn->getPosition().getLocation()] = pPawn;
+   // }
    
 
 
@@ -201,29 +218,6 @@ int main()
 
    void* p;
    p = &board;
-
-   Pawn pawn(2, 4, true);
-   cout << pawn.getPosition().getLocation() << endl;
-   board.getBoard()[pawn.getPosition().getLocation()] = &pawn;
-
-   Pawn pawn2(7, 5, false);
-   board.getBoard()[pawn2.getPosition().getLocation()] = &pawn2;
-
-
-   // Initialize the game class
-   // note this is upside down: 0 row is at the bottom
-   //char board[64] = {
-   //   'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
-   //   'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
-   //   ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-   //   ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-   //   ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-   //   ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-   //   // ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-   //   'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
-   //   'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'
-   //};
-
 
    // set everything into action
    //ui.run(callBack, board.getBoard());

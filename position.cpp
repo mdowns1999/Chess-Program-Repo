@@ -71,29 +71,43 @@ bool Position::isValid()
  ****************************************************************/
 bool Position::isValid(int delta)
 {
-   assert(delta == 1 || delta == 8 || )
-   int dCol = delta % 8;
-   int dRow = delta / 8;
+   //assert(delta == 1 || delta == 8 || )
+   
+   int dCol = (delta + location) % 8;
+   int dRow = (delta + location) / 8;
 
    int c = location % 8;
    int r = location / 8;
+   cout << "*****************************" << endl;
 
-   if (c + dCol > 8 or c  dCol < 0)
-      invalid
-
-   cout << "Location" << location << endl;
+   cout << "Location: " << location << endl;
+   cout << "Delta: " << delta << endl;
+   cout << "dCOL " << dCol << endl;
+   cout << "dRow " << dRow << endl;
+   cout << "c " << c << endl;
+   cout << "r " << r << endl;
+   cout << "Delta + Location: " << location + delta << endl;
+   cout << "************************************"<< endl;
+   // if (c + dCol > 8 || c + dCol < 0)
+   //    return false;
+   
+   if (c == 7 && dCol == 0 && dRow != r)
+      return false;
+   if (c == 0 && dCol == 7 && dRow != r)
+      return false;
+   
    //cout << "location % 8: " << (location % 8) << endl;
    //cout << "location + delta )% 8 != 7: " << ((location + delta) % 8 != 7) << endl; && (location + delta) / 8 != location / 8)
-   if(location % 8 == 7 && ((location + delta) % 8 == 0 ))
-      return false;
+   //if(location % 8 == 7 && ((location + delta) % 8 == 0 ))
+   //   return false;
 
-   if(location % 8 == 0 && ((location + delta )% 8 == 7 ))
-      return false;
-   if (location / 8 == 7 && ((location + delta) / 8 == 0))
-      return false;
+   //if(location % 8 == 0 && ((location + delta )% 8 == 7 ))
+   //   return false;
+   //if (location / 8 == 7 && ((location + delta) / 8 == 0))
+   //   return false;
 
-   if (location / 8 == 0 && ((location + delta) / 8 == 7))
-      return false;
+   //if (location / 8 == 0 && ((location + delta) / 8 == 7))
+   //   return false;
 
    //Check that we do not go off the board to the left
    //if (location % 8 == 0)

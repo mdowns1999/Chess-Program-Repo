@@ -33,48 +33,29 @@ Get the Moves for the Chess Piece
 *************************************/
 set<int> Knight::getMoves(Board& board)
 {
-   set<int> moves;
+   set<int> knightMoves;
 
-   Position posMove(position, fWhite ? 8 : -8);
-
-   //Basic move 1 up
-
-   if (posMove.isValid() && board.getBoard()[posMove.getLocation()]->getLetter() == 'u')
+   M moveStruct[8] =
    {
-      moves.insert(posMove.getLocation());
+        {15}, {17}, 
+        {6},  {10},
+        {-6}, {-10},
+        {-15}, {-17}
 
-      //   //Basic move 2 up. NOTE FIX LOGIC OF IS VALID
-      if (posMove.isValid() && board.getBoard()[posMove.getLocation() + (fWhite ? 8 : -8)]->getLetter() == 'u')
-      {
-         moves.insert(posMove.getLocation() + (fWhite ? 8 : -8));
+   };
 
-      }
+   //OWN FUNCTION
+   for (int i = 0; i < 8; i++)
+   {
+      //cout << moveStruct[i].move << endl;
+      Position posMove(position, moveStruct[i].move);
 
+
+      if (posMove.isValid())
+         knightMoves.insert(posMove.getLocation());
    }
 
-
-   //Attack Left
-   if (posMove.getColumn() > 1)
-   {
-      //posMove.setCol(posMove.getColumn() - 1);
-
-      if (board.getBoard()[posMove.getLocation() - 1]->isWhite() != fWhite && board.getBoard()[posMove.getLocation() - 1]->getLetter() != 'u')
-      {
-         moves.insert(posMove.getLocation() - 1);
-      }
-
-   }
-
-   // //Attack Right
-   if (posMove.getColumn() < 8)
-   {
-      if (board.getBoard()[posMove.getLocation() + 1]->isWhite() != fWhite && board.getBoard()[posMove.getLocation() + 1]->getLetter() != 'u')
-      {
-         moves.insert(posMove.getLocation() + 1);
-      }
-   }
-
-   return moves;
+   return knightMoves;
 };
 
 /*************************************
