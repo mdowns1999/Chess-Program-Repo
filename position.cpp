@@ -71,15 +71,29 @@ bool Position::isValid()
  ****************************************************************/
 bool Position::isValid(int delta)
 {
+   assert(delta == 1 || delta == 8 || )
+   int dCol = delta % 8;
+   int dRow = delta / 8;
+
+   int c = location % 8;
+   int r = location / 8;
+
+   if (c + dCol > 8 or c  dCol < 0)
+      invalid
+
    cout << "Location" << location << endl;
    //cout << "location % 8: " << (location % 8) << endl;
-   //cout << "location + delta )% 8 != 7: " << ((location + delta) % 8 != 7) << endl;
-   if(location % 8 == 7 && ((location + delta) % 8 == 0 && (location + delta) / 8 != location / 8))
+   //cout << "location + delta )% 8 != 7: " << ((location + delta) % 8 != 7) << endl; && (location + delta) / 8 != location / 8)
+   if(location % 8 == 7 && ((location + delta) % 8 == 0 ))
       return false;
 
-   if(location % 8 == 0 && ((location + delta )% 8 == 7 && (location + delta) / 8 != location / 8))
+   if(location % 8 == 0 && ((location + delta )% 8 == 7 ))
       return false;
-   
+   if (location / 8 == 7 && ((location + delta) / 8 == 0))
+      return false;
+
+   if (location / 8 == 0 && ((location + delta) / 8 == 7))
+      return false;
 
    //Check that we do not go off the board to the left
    //if (location % 8 == 0)
