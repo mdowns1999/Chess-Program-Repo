@@ -137,7 +137,7 @@ int main()
    board.getBoard()[wKnight1.getPosition().getLocation()] = &wKnight1;
    Bishop wBishop1(8, 5, false);
    board.getBoard()[wBishop1.getPosition().getLocation()] = &wBishop1;
-   King wKing(4, 4, false);
+   King wKing(8, 4, false);
    board.getBoard()[wKing.getPosition().getLocation()] = &wKing;
    Queen wQueen(8, 3, false);
    board.getBoard()[wQueen.getPosition().getLocation()] = &wQueen;
@@ -145,7 +145,7 @@ int main()
    board.getBoard()[wBishop2.getPosition().getLocation()] = &wBishop2;
    Knight wKnight2(8, 1, false);
    board.getBoard()[wKnight2.getPosition().getLocation()] = &wKnight2;
-   Rook wRook2(8, 0, false);
+   Rook wRook2(4, 4, false);
    board.getBoard()[wRook2.getPosition().getLocation()] = &wRook2;
 
    for(int i = 0; i < 8; i++)

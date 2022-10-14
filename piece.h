@@ -31,6 +31,12 @@ public:
    Piece();
    Piece(int r, int c, bool white);
 
+   struct M
+   {
+      int move;
+
+   };
+
    void assign(Position position);
    void assign(Piece piece);
    bool isWhite();

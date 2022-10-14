@@ -33,48 +33,37 @@ Get the Moves for the Chess Piece
 *************************************/
 set<int> Rook::getMoves(Board& board)
 {
-   set<int> moves;
+   set<int> rookMoves;
 
-   Position posMove(position, fWhite ? 8 : -8);
+   //Position posMove(position, fWhite ? 8 : -8);
 
-   //Basic move 1 up
-
-   if (posMove.isValid() && board.getBoard()[posMove.getLocation()]->getLetter() == 'u')
+   M moveStruct[4] =
    {
-      moves.insert(posMove.getLocation());
+               {8},
+         {-1},      {1},
+               {-8}
 
-      //   //Basic move 2 up. NOTE FIX LOGIC OF IS VALID
-      if (posMove.isValid() && board.getBoard()[posMove.getLocation() + (fWhite ? 8 : -8)]->getLetter() == 'u')
-      {
-         moves.insert(posMove.getLocation() + (fWhite ? 8 : -8));
+   };
 
-      }
+   //OWN FUNCTION
+   for (int i = 0; i < 4; i++)
+   {
+      //cout << moveStruct[i].move << endl;
+      Position posMove(position, moveStruct[i].move);
 
+
+      // position.getLocation() + (moveStruct[i].move * j) >= 0 && position.getLocation() + (moveStruct[i].move * j) <= 63 
+       for(int j = 1;posMove.isValid() &&
+       board.getBoard()[posMove.getLocation()]->getLetter() == 'u'; j++)
+       {
+          rookMoves.insert(posMove.getLocation());
+          if (posMove.isValid(moveStruct[i].move))
+            posMove.addLocation(moveStruct[i].move);
+         
+       }
    }
 
-
-   //Attack Left
-   if (posMove.getColumn() > 1)
-   {
-      //posMove.setCol(posMove.getColumn() - 1);
-
-      if (board.getBoard()[posMove.getLocation() - 1]->isWhite() != fWhite && board.getBoard()[posMove.getLocation() - 1]->getLetter() != 'u')
-      {
-         moves.insert(posMove.getLocation() - 1);
-      }
-
-   }
-
-   // //Attack Right
-   if (posMove.getColumn() < 8)
-   {
-      if (board.getBoard()[posMove.getLocation() + 1]->isWhite() != fWhite && board.getBoard()[posMove.getLocation() + 1]->getLetter() != 'u')
-      {
-         moves.insert(posMove.getLocation() + 1);
-      }
-   }
-
-   return moves;
+   return rookMoves;
 };
 
 /*************************************

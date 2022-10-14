@@ -1,4 +1,4 @@
-#include "position.h"
+ #include "position.h"
 
 Position::Position(Position position, int move)
 {
@@ -63,6 +63,32 @@ int Position::getY()
 bool Position::isValid()
 {
    return (location >= 0 && location <= 63);
+};
+
+/*****************************************************************
+ * IS VALID
+ * Checks position is valid.
+ ****************************************************************/
+bool Position::isValid(int delta)
+{
+   cout << "Location" << location << endl;
+   //cout << "location % 8: " << (location % 8) << endl;
+   //cout << "location + delta )% 8 != 7: " << ((location + delta) % 8 != 7) << endl;
+   if(location % 8 == 7 && ((location + delta) % 8 == 0 && (location + delta) / 8 != location / 8))
+      return false;
+
+   if(location % 8 == 0 && ((location + delta )% 8 == 7 && (location + delta) / 8 != location / 8))
+      return false;
+   
+
+   //Check that we do not go off the board to the left
+   //if (location % 8 == 0)
+    //  return false;
+
+   //return (location + delta >= 0 && location + delta <= 63);
+
+
+   return (location + delta >= 0 && location + delta <= 63);
 };
 
 /*****************************************************************

@@ -33,48 +33,28 @@ Get the Moves for the Chess Piece
 *************************************/
 set<int> King::getMoves(Board& board)
 {
-   set<int> moves;
+   set<int> kingMoves;
 
-   Position posMove(position, 9);
-
-   //Basic move 1 up
-
-   if (posMove.isValid() && board.getBoard()[posMove.getLocation()]->getLetter() == 'u')
+   M moveStruct[8] =
    {
-      moves.insert(posMove.getLocation());
+        {7}, {8}, {9},
+        {-1},      {1},
+        {-7}, {-8},{-9}
 
+   };
+
+   //OWN FUNCTION
+   for (int i = 0; i < 8; i++)
+   {
+      //cout << moveStruct[i].move << endl;
+      Position posMove(position, moveStruct[i].move);
+
+
+      if (posMove.isValid())
+         kingMoves.insert(posMove.getLocation());
    }
 
-
-   //Move Diagonal Left
-   if (posMove.getColumn() > 1)
-   {
-      //posMove.setCol(posMove.getColumn() - 1);
-
-      if ((board.getBoard()[posMove.getLocation() - 1]->isWhite() != fWhite 
-         && board.getBoard()[posMove.getLocation() - 1]->getLetter() != 'u')
-         || board.getBoard()[posMove.getLocation() - 1]->getLetter() == 'u')
-      {
-         moves.insert(posMove.getLocation() - 1);
-      }
-
-   }
-
-   //Move Diagonal Right
-   if (posMove.getColumn() < 8)
-   {
-      //posMove.setCol(posMove.getColumn() - 1);
-
-      if ((board.getBoard()[posMove.getLocation() + 1]->isWhite() != fWhite
-         && board.getBoard()[posMove.getLocation() + 1]->getLetter() != 'u')
-         || board.getBoard()[posMove.getLocation() + 1]->getLetter() == 'u')
-      {
-         moves.insert(posMove.getLocation() + 1);
-      }
-
-   }
-
-   return moves;
+   return kingMoves;
 };
 
 /*************************************

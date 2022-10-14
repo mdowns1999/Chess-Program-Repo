@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+using namespace std;
 
 class Position
 {
@@ -19,6 +21,8 @@ public:
    int getX();
    int getY();
    bool isValid();
+   bool isValid(int delta);
+   void addLocation(int delta) { location = location + delta; };
    void setRow(int r);
    void setCol(int c);
    void setLocation(int l) { location = l; };
