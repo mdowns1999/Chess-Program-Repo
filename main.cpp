@@ -28,26 +28,27 @@ bool move(Board* board, int positionFrom, int positionTo)
    // only move there is the suggested move is on the set of possible moves
    if (possiblePrevious.find(positionTo) != possiblePrevious.end())
    {
-      // Piece *pMover = board->getBoard()[positionFrom];
-      // Piece *pKilled = board->getBoard()[positionTo];
-
-      // New Piece
-      int row = board->getBoard()[positionFrom]->getPosition().getRow();
-      int col = board->getBoard()[positionFrom]->getPosition().getColumn();
-      Piece* pPiece = new Piece(row, col, true);
-      
-
       //Swap locations of the objects
        Position storePos = board->getBoard()[positionFrom]->getPosition();
        board->getBoard()[positionFrom]->assign(board->getBoard()[positionTo]->getPosition());
        board->getBoard()[positionTo]->assign(storePos);
 
       // Swap Pointers
-       board->getBoard()[positionTo],board->getBoard()[positionFrom] = board->getBoard()[positionFrom],board->getBoard()[positionTo];
+       Piece* storePiece = board->getBoard()[positionTo];
+       board->getBoard()[positionTo] = board->getBoard()[positionFrom];
+       board->getBoard()[positionFrom] = storePiece;
       
-      // Delete old object
-       delete board->getBoard()[positionFrom];
-       board->getBoard()[positionFrom] = pPiece;
+      if (board->getBoard()[positionFrom]->getLetter() != 'u')
+      {
+         int row = board->getBoard()[positionFrom]->getPosition().getRow();
+         int col = board->getBoard()[positionFrom]->getPosition().getColumn() - 1;
+         Piece* pPiece = new Piece(row, col, true);
+         
+         //// Delete old object
+         delete board->getBoard()[positionFrom];
+         board->getBoard()[positionFrom] = pPiece;
+      }
+      
       
 
    //   board->getBoard()[positionFrom]->assign(board->getBoard()[positionTo]->getPosition());
