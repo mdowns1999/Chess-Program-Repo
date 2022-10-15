@@ -1,3 +1,11 @@
+/***********************************************************************
+ * Header File:
+ *    Piece : A default Chess Board Piece
+ * Author:
+ *   Ben, Star, and Mike
+ * Summary:
+ *    This is the Piece in chess.
+ ************************************************************************/
 #pragma once
 #include "position.h"
 #include "board.h"
@@ -49,7 +57,7 @@ public:
    //Virtual Functions for Inheritance
    virtual char getLetter() { return letter; }
    virtual void display(ogstream &gout) {}
-   virtual set<int> getMoves(Board& board) { return set<int>(); }
+   virtual set<int> getMoves(Piece** board) { return set<int>(); }
 };
 
 

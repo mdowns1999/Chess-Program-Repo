@@ -1,3 +1,11 @@
+/***********************************************************************
+ * Source File:
+ *    Position
+ * Author:
+ *    Ben, Star, Mike
+ * Summary:
+ *    This code handles Position.  
+ ************************************************************************/
  #include "position.h"
 
 Position::Position(Position position, int move)

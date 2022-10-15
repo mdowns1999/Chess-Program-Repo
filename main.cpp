@@ -12,65 +12,6 @@
 #include <iostream>
 using namespace std;
 
-/*********************************************
- * MOVE
- * Execute one movement. Return TRUE if successful
- *********************************************/
-bool move(Board* board, int positionFrom, int positionTo)
-{
-   // do not move if a move was not indicated
-   if (positionFrom == -1 || positionTo == -1)
-     return false;
-
-   // find the set of possible moves from our current location
-   set <int> possiblePrevious = board->getBoard()[positionFrom]->getMoves(*board);
-
-   // only move there is the suggested move is on the set of possible moves
-   if (possiblePrevious.find(positionTo) != possiblePrevious.end())
-   {
-      //Swap locations of the objects
-       Position storePos = board->getBoard()[positionFrom]->getPosition();
-       board->getBoard()[positionFrom]->assign(board->getBoard()[positionTo]->getPosition());
-       board->getBoard()[positionTo]->assign(storePos);
-
-      // Swap Pointers
-       Piece* storePiece = board->getBoard()[positionTo];
-       board->getBoard()[positionTo] = board->getBoard()[positionFrom];
-       board->getBoard()[positionFrom] = storePiece;
-      
-      if (board->getBoard()[positionFrom]->getLetter() != 'u')
-      {
-         int row = board->getBoard()[positionFrom]->getPosition().getRow();
-         int col = board->getBoard()[positionFrom]->getPosition().getColumn() - 1;
-         Piece* pPiece = new Piece(row, col, true);
-         
-         //// Delete old object
-         delete board->getBoard()[positionFrom];
-         board->getBoard()[positionFrom] = pPiece;
-      }
-      
-      
-
-   //   board->getBoard()[positionFrom]->assign(board->getBoard()[positionTo]->getPosition());
-   //   board->getBoard()[positionTo] = board->getBoard()[positionFrom];
-
-   //   int r = board->getBoard()[positionFrom]->getPosition().getLocation() / 8 + 1;
-   //   int c = board->getBoard()[positionFrom]->getPosition().getLocation() % 8 + 1;
-
-   //   cout << r << endl;
-   //   cout << c << endl;
-
-   //   board->getBoard()[positionFrom] = new Piece(r, c, true);
-
-      
-
-     return true;
-   }
-
-   return false;
-
-}
-
 /***************************************************
 //  * DRAW
 //  * Draw the current state of the game
@@ -108,31 +49,30 @@ void draw( Piece** board, const Interface& ui, const set <int>& possible)
  **************************************/
 void callBack(Interface* pUI, void *p)
 {
+
    set <int> possible;
    Board* pBoard = (Board*)p;
+
+   bool whiteTurn = pBoard->whiteTurn();
    //This will get the user's Selected Position
    int prevLocation = pUI->getPreviousPosition();
    int currLocation = pUI->getSelectPosition();
 
+   // move the piece based on turn.
+   if (pBoard->move(prevLocation, currLocation))
+      pUI->clearSelectPosition();
+   else if (currLocation != -1)
+      if (pBoard->getBoard()[currLocation]->isWhite() != whiteTurn)
+         possible = pBoard->getBoard()[currLocation]->getMoves(pBoard->getBoard());
 
-      // move 
-      if (move(pBoard, prevLocation, currLocation))
-         pUI->clearSelectPosition();
-      else if (currLocation != -1)
-         possible = pBoard->getBoard()[currLocation]->getMoves(*pBoard);
+   // if we clicked on a blank spot, then it is not selected
+   if (currLocation != -1 && pBoard->getBoard()[currLocation]->getLetter() == 'u')
+      pUI->clearSelectPosition();
 
-      // if we clicked on a blank spot, then it is not selected
-      if (currLocation != -1 && pBoard->getBoard()[currLocation]->getLetter() == 'u')
-         pUI->clearSelectPosition();
-
-      // draw the board
-      draw(pBoard->getBoard(), *pUI, possible);
+   // draw the board
+   draw(pBoard->getBoard(), *pUI, possible);
 
 }
-
-
-
-
 
 
 /*********************************
@@ -165,6 +105,7 @@ int main()
    Rook* pWRook2 = new Rook(8, 0, false);
    board.getBoard()[pWRook2->getPosition().getLocation()] = pWRook2;
 
+   //Generate Pawns
    for(int i = 0; i < 8; i++)
    {
       Pawn* pPawn = new Pawn(7, i, false);
@@ -192,36 +133,18 @@ int main()
    Knight* pBKnight2 = new Knight(1, 6, true);
    board.getBoard()[pBKnight2->getPosition().getLocation()] = pBKnight2;
   
-  
-   // for (int i = 0; i < 8; i++)
-   // {
-   //    Pawn* pPawn = new Pawn(2, i, true);
-   //    board.getBoard()[pPawn->getPosition().getLocation()] = pPawn;
-   // }
-   
+   //Generate Pawns
+    for (int i = 0; i < 8; i++)
+    {
+       Pawn* pPawn = new Pawn(2, i, true);
+       board.getBoard()[pPawn->getPosition().getLocation()] = pPawn;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   //Set Board to Void Pointer to pass into Callback
    void* p;
    p = &board;
 
-   // set everything into action
-   //ui.run(callBack, board.getBoard());
+   //Run CallBack
    ui.run(callBack, p);
 
    return 0;

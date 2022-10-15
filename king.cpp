@@ -1,8 +1,17 @@
+/***********************************************************************
+ * Source File:
+ *    King
+ * Author:
+ *    Mike, Ben, and Star
+ * Summary:
+ *    This is code handles all the specifics of King.  King can move
+ * one space any direction.
+ ************************************************************************/
 #include "king.h"
 
 /*************************************
 CONSTRUCTOR
-Set up the Pieces attributes
+Set up the King attributes
 *************************************/
 King::King(int r, int c, bool white)
 {
@@ -12,13 +21,12 @@ King::King(int r, int c, bool white)
    this->lastMove = 0;
    position.setRow(r);
    position.setCol(c);
-
    this->letter = fWhite ? 'K' : 'k';
 }
 
 /*************************************
 GET LETTER
-Get the Pieces Letter
+Get the King Letter
 *************************************/
 char King::getLetter()
 {
@@ -29,9 +37,9 @@ char King::getLetter()
 
 /*************************************
 GET MOVES
-Get the Moves for the Chess Piece
+Get the Moves for the King
 *************************************/
-set<int> King::getMoves(Board& board)
+set<int> King::getMoves(Piece** board)
 {
    set<int> kingMoves;
 
@@ -46,11 +54,11 @@ set<int> King::getMoves(Board& board)
    //OWN FUNCTION
    for (int i = 0; i < 8; i++)
    {
-      //cout << moveStruct[i].move << endl;
       Position posMove(position, moveStruct[i].move);
 
 
-      if (posMove.isValid())
+      if (posMove.isValid() && (board[posMove.getLocation()]->getLetter() == 'u' || 
+         board[posMove.getLocation()]->isWhite() != fWhite) )
          kingMoves.insert(posMove.getLocation());
    }
 
@@ -59,7 +67,7 @@ set<int> King::getMoves(Board& board)
 
 /*************************************
 DISPLAY
-Draw the Piece
+Draw the King
 *************************************/
 void King::display(ogstream& gout)
 {

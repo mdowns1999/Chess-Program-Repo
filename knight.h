@@ -1,3 +1,11 @@
+/***********************************************************************
+ * Header File:
+ *    Knight : A Chess Board Piece
+ * Author:
+ *   Ben, Star, and Mike
+ * Summary:
+ *    This is the Knight in chess.
+ ************************************************************************/
 #pragma once
 #include "piece.h"
 #include "board.h"
@@ -11,7 +19,6 @@ private:
 
 public:
 
-   //Pawn();
    //Constructor
    Knight(int r, int col, bool white);
 
@@ -19,5 +26,5 @@ public:
 
    char getLetter();
    virtual void display(ogstream& gout);
-   set<int> getMoves(Board& board);
+   set<int> getMoves(Piece** board);
 };

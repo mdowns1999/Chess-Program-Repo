@@ -1,272 +1,272 @@
-/***********************************************************************
- * Header File:
- *    Test Pawn : Test the Pawn class
- * Author:
- *   Ben, Star, and Mike
- * Summary:
- *    All the unit tests for Pawn
- ************************************************************************/
+// /***********************************************************************
+//  * Header File:
+//  *    Test Pawn : Test the Pawn class
+//  * Author:
+//  *   Ben, Star, and Mike
+//  * Summary:
+//  *    All the unit tests for Pawn
+//  ************************************************************************/
 
- /*********************************************
- * * * A  B  C  D  E  F  G  H * *
- * 8   57 58 59 60 61 62 63 64
- * 7   49 50 51 52 53 54 55 56
- * 6   41 42 43 44 45 46 47 48
- * 5   33 34 35 36 37 38 39 40
- * 4   25 26 27 28 29 30 31 32
- * 3   17 18 19 20 21 22 23 24
- * 2   9  10 11 12 13 14 15 16
- * 1   1  2  3  4  5  6  7  8  * *
- **********************************************/
+//  /*********************************************
+//  * * * A  B  C  D  E  F  G  H * *
+//  * 8   57 58 59 60 61 62 63 64
+//  * 7   49 50 51 52 53 54 55 56
+//  * 6   41 42 43 44 45 46 47 48
+//  * 5   33 34 35 36 37 38 39 40
+//  * 4   25 26 27 28 29 30 31 32
+//  * 3   17 18 19 20 21 22 23 24
+//  * 2   9  10 11 12 13 14 15 16
+//  * 1   1  2  3  4  5  6  7  8  * *
+//  **********************************************/
 
 
-#pragma once
-#include "pawn.h"
-#include "cassert"
-#include <set>
+// #pragma once
+// #include "pawn.h"
+// #include "cassert"
+// #include <set>
 
-class testPawn
-{
-public:
-   void run()
-   {
-      getLetterTest_P();
-      getLetterTest_p();
+// class testPawn
+// {
+// public:
+//    void run()
+//    {
+//       getLetterTest_P();
+//       getLetterTest_p();
 
-      getMovesTest_noMove();
-      getMovesTest_simpleMove();
-      getMovesTest_moveTwo();
-      getMovesTest_capture();
-      getMovesTest_empassant();
-      getMovesTest_promotion();
+//       getMovesTest_noMove();
+//       getMovesTest_simpleMove();
+//       getMovesTest_moveTwo();
+//       getMovesTest_capture();
+//       getMovesTest_empassant();
+//       getMovesTest_promotion();
 
-   }
-private:
+//    }
+// private:
 
-   // test the getLetter for the pawn class 
-   void getLetterTest_P() const
-   {
-      // setup
-      Pawn p(1, 2, true);
-      char letter;
+//    // test the getLetter for the pawn class 
+//    void getLetterTest_P() const
+//    {
+//       // setup
+//       Pawn p(1, 2, true);
+//       char letter;
 
-      // exercise
-      letter = p.getLetter();
+//       // exercise
+//       letter = p.getLetter();
 
-      // verify
-      assert(letter == 'P');
-   }  // teardown
+//       // verify
+//       assert(letter == 'P');
+//    }  // teardown
 
-   void getLetterTest_p() const
-   {
-      // setup
-      Pawn p(1, 2, false);
-      char letter;
+//    void getLetterTest_p() const
+//    {
+//       // setup
+//       Pawn p(1, 2, false);
+//       char letter;
 
-      // exercise
-      letter = p.getLetter();
+//       // exercise
+//       letter = p.getLetter();
 
-      // verify
-      assert(letter == 'p');
-   }  // teardown
+//       // verify
+//       assert(letter == 'p');
+//    }  // teardown
 
-   // test the getMoves for the pawn class 
-  /*********************************************
-  * * * A  B  C  D  E  F  G  H * *
-  * 8   57 58 59 60 61 62 63 64
-  * 7   49 50 51 52 53 54 55 56
-  * 6   41 42 43 44 45 46 47 48
-  * 5   33 34 35 36 37 38 39 40
-  * 4   25 26 27 28 29 30 31 32
-  * 3   17 18 P1 P2 P3 22 23 24
-  * 2   9  10 11 *  13 14 15 16
-  * 1   1  2  3  4  5  6  7  8  * *
-  **********************************************/
-   void getMovesTest_noMove() const
-   {
-      // setup
-      Pawn p(2, 4, true); // *: main pawn 
-      Pawn p1(3, 3, true); // P: Blocking 
-      Pawn p2(3, 4, true); // P: Blocking
-      Pawn p3(3, 5, true); // P: Blocking
-      Board board;
-      board.getBoard()[p.getPosition().getLocation()] = &p;
-      board.getBoard()[p1.getPosition().getLocation()] = &p1;
-      board.getBoard()[p2.getPosition().getLocation()] = &p2;
-      board.getBoard()[p3.getPosition().getLocation()] = &p3;
-      set <int> moves;
-      // exercise
-      moves = p.getMoves(board);
+//    // test the getMoves for the pawn class 
+//   /*********************************************
+//   * * * A  B  C  D  E  F  G  H * *
+//   * 8   57 58 59 60 61 62 63 64
+//   * 7   49 50 51 52 53 54 55 56
+//   * 6   41 42 43 44 45 46 47 48
+//   * 5   33 34 35 36 37 38 39 40
+//   * 4   25 26 27 28 29 30 31 32
+//   * 3   17 18 P1 P2 P3 22 23 24
+//   * 2   9  10 11 *  13 14 15 16
+//   * 1   1  2  3  4  5  6  7  8  * *
+//   **********************************************/
+//    void getMovesTest_noMove() const
+//    {
+//       // setup
+//       Pawn p(2, 4, true); // *: main pawn 
+//       Pawn p1(3, 3, true); // P: Blocking 
+//       Pawn p2(3, 4, true); // P: Blocking
+//       Pawn p3(3, 5, true); // P: Blocking
+//       Board board;
+//       board.getBoard()[p.getPosition().getLocation()] = &p;
+//       board.getBoard()[p1.getPosition().getLocation()] = &p1;
+//       board.getBoard()[p2.getPosition().getLocation()] = &p2;
+//       board.getBoard()[p3.getPosition().getLocation()] = &p3;
+//       set <int> moves;
+//       // exercise
+//       moves = p.getMoves(board);
 
-      // verify
-      assert(moves.empty());
+//       // verify
+//       assert(moves.empty());
 
-   }  // teardown
+//    }  // teardown
 
-  /*********************************************
-  * * * A  B  C  D  E  F  G  H * *
-  * 8   57 58 59 60 61 62 63 64
-  * 7   49 50 51 52 53 54 55 56
-  * 6   41 42 43 44 45 46 47 48
-  * 5   33 34 35 36 37 38 39 40
-  * 4   25 26 27 P2 29 30 31 32
-  * 3   17 18 P1 20 P3 22 23 24
-  * 2   9  10 11 *  13 14 15 16
-  * 1   1  2  3  4  5  6  7  8  * *
-  **********************************************/
-   void getMovesTest_simpleMove() const
-   {
-      // setup
-      Pawn p(2, 4, true); // *: main pawn 
-      Pawn p1(3, 3, true); // P: Blocking 
-      Pawn p2(4, 4, true); // P: Blocking
-      Pawn p3(3, 5, true); // P: Blocking
-      Board board;
+//   /*********************************************
+//   * * * A  B  C  D  E  F  G  H * *
+//   * 8   57 58 59 60 61 62 63 64
+//   * 7   49 50 51 52 53 54 55 56
+//   * 6   41 42 43 44 45 46 47 48
+//   * 5   33 34 35 36 37 38 39 40
+//   * 4   25 26 27 P2 29 30 31 32
+//   * 3   17 18 P1 20 P3 22 23 24
+//   * 2   9  10 11 *  13 14 15 16
+//   * 1   1  2  3  4  5  6  7  8  * *
+//   **********************************************/
+//    void getMovesTest_simpleMove() const
+//    {
+//       // setup
+//       Pawn p(2, 4, true); // *: main pawn 
+//       Pawn p1(3, 3, true); // P: Blocking 
+//       Pawn p2(4, 4, true); // P: Blocking
+//       Pawn p3(3, 5, true); // P: Blocking
+//       Board board;
 
-      board.getBoard()[p.getPosition().getLocation()] = &p;
-      board.getBoard()[p1.getPosition().getLocation()] = &p1;
-      board.getBoard()[p2.getPosition().getLocation()] = &p2;
-      board.getBoard()[p3.getPosition().getLocation()] = &p3;
-      set <int> moves;
+//       board.getBoard()[p.getPosition().getLocation()] = &p;
+//       board.getBoard()[p1.getPosition().getLocation()] = &p1;
+//       board.getBoard()[p2.getPosition().getLocation()] = &p2;
+//       board.getBoard()[p3.getPosition().getLocation()] = &p3;
+//       set <int> moves;
 
-      // exercise
-      moves = p.getMoves(board);
+//       // exercise
+//       moves = p.getMoves(board);
       
 
-      // verify
-      assert(moves.find(20) != moves.end());
-      assert(moves.size() == 1);
-   }  // teardown
+//       // verify
+//       assert(moves.find(20) != moves.end());
+//       assert(moves.size() == 1);
+//    }  // teardown
 
 
-    /*********************************************
-  * * * A  B  C  D  E  F  G  H * *
-  * 8   57 58 59 60 61 62 63 64
-  * 7   49 50 51 52 53 54 55 56
-  * 6   41 42 43 44 45 46 47 48
-  * 5   33 34 35 P2 37 38 39 40
-  * 4   25 26 27 28 29 30 31 32
-  * 3   17 18 P1 20 P3 22 23 24
-  * 2   9  10 11 *  13 14 15 16
-  * 1   1  2  3  4  5  6  7  8  * *
-  **********************************************/
-   void getMovesTest_moveTwo() const
-   {
-      // setup
-      Pawn p(2, 4, true); // *: main pawn 
-      Pawn p1(3, 3, true); // P: Blocking 
-      Pawn p2(5, 4, true); // P: Blocking
-      Pawn p3(3, 5, true); // P: Blocking
-      Board board;
+//     /*********************************************
+//   * * * A  B  C  D  E  F  G  H * *
+//   * 8   57 58 59 60 61 62 63 64
+//   * 7   49 50 51 52 53 54 55 56
+//   * 6   41 42 43 44 45 46 47 48
+//   * 5   33 34 35 P2 37 38 39 40
+//   * 4   25 26 27 28 29 30 31 32
+//   * 3   17 18 P1 20 P3 22 23 24
+//   * 2   9  10 11 *  13 14 15 16
+//   * 1   1  2  3  4  5  6  7  8  * *
+//   **********************************************/
+//    void getMovesTest_moveTwo() const
+//    {
+//       // setup
+//       Pawn p(2, 4, true); // *: main pawn 
+//       Pawn p1(3, 3, true); // P: Blocking 
+//       Pawn p2(5, 4, true); // P: Blocking
+//       Pawn p3(3, 5, true); // P: Blocking
+//       Board board;
 
-      board.getBoard()[p.getPosition().getLocation()] = &p;
-      board.getBoard()[p1.getPosition().getLocation()] = &p1;
-      board.getBoard()[p2.getPosition().getLocation()] = &p2;
-      board.getBoard()[p3.getPosition().getLocation()] = &p3;
-      set <int> moves;
+//       board.getBoard()[p.getPosition().getLocation()] = &p;
+//       board.getBoard()[p1.getPosition().getLocation()] = &p1;
+//       board.getBoard()[p2.getPosition().getLocation()] = &p2;
+//       board.getBoard()[p3.getPosition().getLocation()] = &p3;
+//       set <int> moves;
 
-      // exercise
-      moves = p.getMoves(board);
+//       // exercise
+//       moves = p.getMoves(board);
 
 
-      // verify
-      assert(moves.find(20) != moves.end());
-      assert(moves.find(28) != moves.end());
-      assert(moves.size() == 2);
-   }  // teardown
+//       // verify
+//       assert(moves.find(20) != moves.end());
+//       assert(moves.find(28) != moves.end());
+//       assert(moves.size() == 2);
+//    }  // teardown
 
-   /*********************************************
-   * * * A  B  C  D  E  F  G  H * *
-   * 8   57 58 59 60 61 62 63 64
-   * 7   49 50 51 52 53 54 55 56
-   * 6   41 42 43 44 45 46 47 48
-   * 5   33 34 35 36 37 38 39 40
-   * 4   25 26 27 28 29 30 31 32
-   * 3   17 18 P1 P2 p3 22 23 24
-   * 2   9  10 11 *  13 14 15 16
-   * 1   1  2  3  4  5  6  7  8  * *
-   **********************************************/
-    void getMovesTest_capture() const
-    {
-       // setup
-       Pawn p(2, 4, true); // *: main pawn 
-       Pawn p1(3, 3, true); // P: Blocking 
-       Pawn p2(3, 4, true); // P: Blocking
-       Pawn p3(3, 5, false); // P: Enemy
-       Board board;
-       board.getBoard()[p.getPosition().getLocation()] = &p;
-       board.getBoard()[p1.getPosition().getLocation()] = &p1;
-       board.getBoard()[p2.getPosition().getLocation()] = &p2;
-       board.getBoard()[p3.getPosition().getLocation()] = &p3;
-       set <int> moves;
+//    /*********************************************
+//    * * * A  B  C  D  E  F  G  H * *
+//    * 8   57 58 59 60 61 62 63 64
+//    * 7   49 50 51 52 53 54 55 56
+//    * 6   41 42 43 44 45 46 47 48
+//    * 5   33 34 35 36 37 38 39 40
+//    * 4   25 26 27 28 29 30 31 32
+//    * 3   17 18 P1 P2 p3 22 23 24
+//    * 2   9  10 11 *  13 14 15 16
+//    * 1   1  2  3  4  5  6  7  8  * *
+//    **********************************************/
+//     void getMovesTest_capture() const
+//     {
+//        // setup
+//        Pawn p(2, 4, true); // *: main pawn 
+//        Pawn p1(3, 3, true); // P: Blocking 
+//        Pawn p2(3, 4, true); // P: Blocking
+//        Pawn p3(3, 5, false); // P: Enemy
+//        Board board;
+//        board.getBoard()[p.getPosition().getLocation()] = &p;
+//        board.getBoard()[p1.getPosition().getLocation()] = &p1;
+//        board.getBoard()[p2.getPosition().getLocation()] = &p2;
+//        board.getBoard()[p3.getPosition().getLocation()] = &p3;
+//        set <int> moves;
 
-       // exercise
-       moves = p.getMoves(board);
-       // verify
-       assert(moves.find(21) != moves.end());
-       assert(moves.size() == 1);
+//        // exercise
+//        moves = p.getMoves(board);
+//        // verify
+//        assert(moves.find(21) != moves.end());
+//        assert(moves.size() == 1);
 
-    }  // teardown
+//     }  // teardown
 
-   /*********************************************
-   * * * A  B  C  D  E  F  G  H * *
-   * 8   57 58 59 60 61 62 63 64
-   * 7   49 50 51 52 53 54 55 56
-   * 6   41 42 43 P1 P2 46 47 48
-   * 5   33 34 35 36 *  p3 39 40
-   * 4   25 26 27 28 29 30 31 32
-   * 3   17 18 19 20 21 22 23 24
-   * 2   9  10 11 12 13 14 15 16
-   * 1   1  2  3  4  5  6  7  8  * *
-   **********************************************/
-    void getMovesTest_empassant() const
-    {
-       // setup
-       Pawn p(5, 5, true); // *: main pawn 
-       Pawn p1(6, 4, true); // P: Blocking 
-       Pawn p2(6, 5, true); // P: Blocking
-       Pawn p3(5, 6, false); // P: Enemy
-       p3.setNMove(1);
-       Board board;
-       board.getBoard()[p.getPosition().getLocation()] = &p;
-       board.getBoard()[p1.getPosition().getLocation()] = &p1;
-       board.getBoard()[p2.getPosition().getLocation()] = &p2;
-       board.getBoard()[p3.getPosition().getLocation()] = &p3;
-       set <int> moves;
-       // exercise
-       moves = p.getMoves(board);
+//    /*********************************************
+//    * * * A  B  C  D  E  F  G  H * *
+//    * 8   57 58 59 60 61 62 63 64
+//    * 7   49 50 51 52 53 54 55 56
+//    * 6   41 42 43 P1 P2 46 47 48
+//    * 5   33 34 35 36 *  p3 39 40
+//    * 4   25 26 27 28 29 30 31 32
+//    * 3   17 18 19 20 21 22 23 24
+//    * 2   9  10 11 12 13 14 15 16
+//    * 1   1  2  3  4  5  6  7  8  * *
+//    **********************************************/
+//     void getMovesTest_empassant() const
+//     {
+//        // setup
+//        Pawn p(5, 5, true); // *: main pawn 
+//        Pawn p1(6, 4, true); // P: Blocking 
+//        Pawn p2(6, 5, true); // P: Blocking
+//        Pawn p3(5, 6, false); // P: Enemy
+//        p3.setNMove(1);
+//        Board board;
+//        board.getBoard()[p.getPosition().getLocation()] = &p;
+//        board.getBoard()[p1.getPosition().getLocation()] = &p1;
+//        board.getBoard()[p2.getPosition().getLocation()] = &p2;
+//        board.getBoard()[p3.getPosition().getLocation()] = &p3;
+//        set <int> moves;
+//        // exercise
+//        moves = p.getMoves(board);
 
-       // verify
-       assert(moves.find(46) != moves.end());
-       assert(moves.size() == 1);
+//        // verify
+//        assert(moves.find(46) != moves.end());
+//        assert(moves.size() == 1);
 
-    }  // teardown
+//     }  // teardown
 
-   /*********************************************
-   * * * A  B  C  D  E  F  G  H * *
-   * 8   57 58 59 60 61 62 63 64
-   * 7   49 50 51 52 53 54 55 56
-   * 6   41 42 43 44 45 46 47 48
-   * 5   33 34 35 36 37 38 39 40
-   * 4   25 26 27 28 29 30 31 32
-   * 3   17 18 19 20 21 22 23 24
-   * 2   9  10 11 *  13 14 15 16
-   * 1   1  2  3  4  5  6  7  8  * *
-   **********************************************/
-    void getMovesTest_promotion() const
-    {
-       // setup
-       Pawn p(2, 4, false); // *: main pawn 
-       set <int> moves;
-       Board board;
-       board.getBoard()[p.getPosition().getLocation()] = &p;
-       // exercise
-       moves = p.getMoves(board);
+//    /*********************************************
+//    * * * A  B  C  D  E  F  G  H * *
+//    * 8   57 58 59 60 61 62 63 64
+//    * 7   49 50 51 52 53 54 55 56
+//    * 6   41 42 43 44 45 46 47 48
+//    * 5   33 34 35 36 37 38 39 40
+//    * 4   25 26 27 28 29 30 31 32
+//    * 3   17 18 19 20 21 22 23 24
+//    * 2   9  10 11 *  13 14 15 16
+//    * 1   1  2  3  4  5  6  7  8  * *
+//    **********************************************/
+//     void getMovesTest_promotion() const
+//     {
+//        // setup
+//        Pawn p(2, 4, false); // *: main pawn 
+//        set <int> moves;
+//        Board board;
+//        board.getBoard()[p.getPosition().getLocation()] = &p;
+//        // exercise
+//        moves = p.getMoves(board);
 
-       // verify
-       assert(moves.find(4) != moves.end());
+//        // verify
+//        assert(moves.find(4) != moves.end());
 
-    }  // teardown
+//     }  // teardown
 
- };
+//  };
 

@@ -1,8 +1,17 @@
-#include "queen.h"
-
+/***********************************************************************
+ * Source File:
+ *    Queen
+ * Author:
+ *    Ben, Star, Mike
+ * Summary:
+ *    This is code handles all the specifics of Queen.  Queen can move
+ * in any direction.
+ ************************************************************************/
+ #include "queen.h"
+ 
 /*************************************
 CONSTRUCTOR
-Set up the Pieces attributes
+Set up the Queen attributes
 *************************************/
 Queen::Queen(int r, int c, bool white)
 {
@@ -12,26 +21,23 @@ Queen::Queen(int r, int c, bool white)
    this->lastMove = 0;
    position.setRow(r);
    position.setCol(c);
-
    this->letter = fWhite ? 'Q' : 'q';
 }
 
 /*************************************
 GET LETTER
-Get the Pieces Letter
+Get the Queen Letter
 *************************************/
 char Queen::getLetter()
 {
    return letter;
 }
 
-//virtual void display() {};
-
 /*************************************
 GET MOVES
-Get the Moves for the Chess Piece
+Get the Moves for the Queen Piece
 *************************************/
-set<int> Queen::getMoves(Board& board)
+set<int> Queen::getMoves(Piece** board)
 {
    set<int> queenMoves;
    M moveStruct[8] =
@@ -45,21 +51,19 @@ set<int> Queen::getMoves(Board& board)
    //OWN FUNCTION
    for (int i = 0; i < 8; i++)
    {
-      //cout << moveStruct[i].move << endl;
-      
       posMove.setLocation(position.getLocation() + moveStruct[i].move);
 
-      if (posMove.isValid() && (board.getBoard()[posMove.getLocation()]->getLetter() == 'u' || board.getBoard()[posMove.getLocation()]->isWhite() != fWhite))
+      if (posMove.isValid() && (board[posMove.getLocation()]->getLetter() == 'u' || board[posMove.getLocation()]->isWhite() != fWhite))
       {
          queenMoves.insert(posMove.getLocation());
       }
 
       while (posMove.isValid(moveStruct[i].move) &&
-       board.getBoard()[posMove.getLocation()]->getLetter() == 'u' )
+       board[posMove.getLocation()]->getLetter() == 'u' )
       {
-         if (board.getBoard()[posMove.getLocation()]->isWhite() != fWhite || board.getBoard()[posMove.getLocation()]->getLetter() == 'u')
+         if (board[posMove.getLocation()]->isWhite() != fWhite || board[posMove.getLocation()]->getLetter() == 'u')
          {
-            cout <<"COLOR: " << board.getBoard()[posMove.getLocation()]->isWhite() << endl;
+            cout <<"COLOR: " << board[posMove.getLocation()]->isWhite() << endl;
             posMove.addLocation(moveStruct[i].move);
             queenMoves.insert(posMove.getLocation());
          }
@@ -70,7 +74,7 @@ set<int> Queen::getMoves(Board& board)
 
 /*************************************
 DISPLAY
-Draw the Piece
+Draw the Queen
 *************************************/
 void Queen::display(ogstream& gout)
 {

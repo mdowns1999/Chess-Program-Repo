@@ -1,27 +1,23 @@
+/***********************************************************************
+ * Source File:
+ *    Pawn
+ * Author:
+ *    Mike, Ben, and Star
+ * Summary:
+ * This is code handles all the specifics of Pawn.  Pawn can move one space and attack 
+ * diagonally if a piece is close.  The pawn can also do a special move called
+ * empassant.
+ ************************************************************************/
 #include "pawn.h"
 
-//Pawn::Pawn()
-//{
-//   r = 1;
-//   c = 0;
-//   fWhite = true;
-//   nMove = 0;
-//   lastMove = 0;
-//   position.setRow(r);
-//   position.setCol(c);
-//};
 
 Pawn::Pawn(int r, int c, bool white)  
 {
-
    this->fWhite = white;
    this->nMove = 0;
    this->lastMove = 0;
    position.setRow(r);
    position.setCol(c);
-   //int x = ((r - 1) * 8) + c;
-   //position.setLocation(((r - 1) * 8) + c);
-
    this->letter = fWhite ? 'P' : 'p';
 }
 
@@ -31,27 +27,21 @@ char Pawn::getLetter()
    return letter;
 }
 
-//virtual void display() {};
 
-
- set<int> Pawn::getMoves(Board &board) 
+ set<int> Pawn::getMoves(Piece** board) 
  { 
     set<int> pawnMoves;
    
    Position posMove(position, fWhite ? 8 : -8);
    
-   //Piece* test = board.getBoard()[posMove.getLocation()];
-   //.getLetter();
-   //cout << "\nLetter: " << test->getLetter() << endl;
-
    //Basic move 1 up
    
-   if(posMove.isValid() && board.getBoard()[posMove.getLocation()]->getLetter() == 'u')
+   if(posMove.isValid() && board[posMove.getLocation()]->getLetter() == 'u')
    {
       pawnMoves.insert(posMove.getLocation());
 
    //   //Basic move 2 up. NOTE FIX LOGIC OF IS VALID
-     if (posMove.isValid() && board.getBoard()[posMove.getLocation() + (fWhite ? 8 : -8)]->getLetter() == 'u' && nMove == 0)
+     if (posMove.isValid() && board[posMove.getLocation() + (fWhite ? 8 : -8)]->getLetter() == 'u' && nMove == 0)
      {
         pawnMoves.insert(posMove.getLocation() + (fWhite ? 8 : -8));
      }
@@ -64,7 +54,7 @@ char Pawn::getLetter()
    {
        //posMove.setCol(posMove.getColumn() - 1);
 
-       if (board.getBoard()[posMove.getLocation() - 1]->isWhite() != fWhite && board.getBoard()[posMove.getLocation() - 1]->getLetter() != 'u')
+       if (board[posMove.getLocation() - 1]->isWhite() != fWhite && board[posMove.getLocation() - 1]->getLetter() != 'u')
        {
           pawnMoves.insert(posMove.getLocation() - 1);
        }
@@ -86,7 +76,7 @@ char Pawn::getLetter()
    // //Attack Right
       if (posMove.getColumn() < 8)
    {
-       if (board.getBoard()[posMove.getLocation() + 1]->isWhite() != fWhite && board.getBoard()[posMove.getLocation() + 1]->getLetter() != 'u')
+       if (board[posMove.getLocation() + 1]->isWhite() != fWhite && board[posMove.getLocation() + 1]->getLetter() != 'u')
        {
           pawnMoves.insert(posMove.getLocation() + 1);
        }

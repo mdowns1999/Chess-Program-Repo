@@ -1,72 +1,68 @@
+/***********************************************************************
+ * Source File:
+ *    Knight
+ * Author:
+ *    Mike, Ben, and Star
+ * Summary:
+ *    This is code handles all the specifics of Rook.  Rook can slide forward or sideways.
+ ************************************************************************/
 #include "rook.h"
 
 /*************************************
 CONSTRUCTOR
-Set up the Pieces attributes
+Set up the Rook attributes
 *************************************/
 Rook::Rook(int r, int c, bool white)
 {
-
    this->fWhite = white;
    this->nMove = 0;
    this->lastMove = 0;
    position.setRow(r);
    position.setCol(c);
-
    this->letter = fWhite ? 'R' : 'r';
 }
 
 /*************************************
 GET LETTER
-Get the Pieces Letter
+Get the Rook Letter
 *************************************/
 char Rook::getLetter()
 {
    return letter;
 }
 
-//virtual void display() {};
-
 /*************************************
 GET MOVES
-Get the Moves for the Chess Piece
+Get the Moves for the Rook
 *************************************/
-set<int> Rook::getMoves(Board& board)
+set<int> Rook::getMoves(Piece** board)
 {
    set<int> rookMoves;
 
-   //Position posMove(position, fWhite ? 8 : -8);
-
    M moveStruct[4] =
    {
- /*              {8},
-         {-1},      {1},
-               {-8}*/
           {8},{-1},{1},{-8}
-
    };
    
    Position posMove(position, 0);
    //OWN FUNCTION
    for (int i = 0; i < 4; i++)
    {
-      //cout << moveStruct[i].move << endl;
-      
       posMove.setLocation(position.getLocation() + moveStruct[i].move);
 
-      if (posMove.isValid() && (board.getBoard()[posMove.getLocation()]->getLetter() == 'u' || 
-         board.getBoard()[posMove.getLocation()]->isWhite() != fWhite))
+      if (posMove.isValid() && (board[posMove.getLocation()]->getLetter() == 'u' || 
+         board[posMove.getLocation()]->isWhite() != fWhite))
       {
          rookMoves.insert(posMove.getLocation());
       }
 
       while (posMove.isValid(moveStruct[i].move) &&
-       board.getBoard()[posMove.getLocation()]->getLetter() == 'u' )
+       board[posMove.getLocation()]->getLetter() == 'u' )
       {
-         if (board.getBoard()[posMove.getLocation()]->isWhite() != fWhite || 
-            board.getBoard()[posMove.getLocation()]->getLetter() == 'u')
+         if (board[posMove.getLocation()]->isWhite() != fWhite || 
+            board[posMove.getLocation()]->getLetter() == 'u')
          {
-            cout <<"COLOR: " << board.getBoard()[posMove.getLocation()]->isWhite() << endl;
+            cout <<"COLOR: " << board[posMove.getLocation()]->isWhite() << endl;
             posMove.addLocation(moveStruct[i].move);
             rookMoves.insert(posMove.getLocation());
          }
@@ -80,7 +76,7 @@ set<int> Rook::getMoves(Board& board)
 
 /*************************************
 DISPLAY
-Draw the Piece
+Draw the Rook
 *************************************/
 void Rook::display(ogstream& gout)
 {

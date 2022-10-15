@@ -1,8 +1,18 @@
+/***********************************************************************
+ * Source File:
+ *    Bishop 
+ * Author:
+ *    Mike, Ben, and Star
+ * Summary:
+ *    This is code handles all the specifics of Bishop.  Bishop can move 
+ * diagnol.
+ ************************************************************************/
+
 #include "bishop.h"
 
 /*************************************
 CONSTRUCTOR
-Set up the Pieces attributes
+Set up the Bishop attributes
 *************************************/
 Bishop::Bishop(int r, int c, bool white)
 {
@@ -18,7 +28,7 @@ Bishop::Bishop(int r, int c, bool white)
 
 /*************************************
 GET LETTER
-Get the Pieces Letter
+Get the Bishop Letter
 *************************************/
 char Bishop::getLetter()
 {
@@ -29,18 +39,16 @@ char Bishop::getLetter()
 
 /*************************************
 GET MOVES
-Get the Moves for the Chess Piece
+Get the Moves for Bishop
 *************************************/
-set<int> Bishop::getMoves(Board& board)
+set<int> Bishop::getMoves(Piece** board)
 {
    set<int> bishopMoves;
 
    M moveStruct[4] =
    {
         {7}, {9},
-        {-7},  {-9}
-
-
+        {-7},{-9}
    };
 
 
@@ -52,17 +60,17 @@ set<int> Bishop::getMoves(Board& board)
       
       posMove.setLocation(position.getLocation() + moveStruct[i].move);
 
-      if (posMove.isValid() && (board.getBoard()[posMove.getLocation()]->getLetter() == 'u' || board.getBoard()[posMove.getLocation()]->isWhite() != fWhite))
+      if (posMove.isValid() && (board[posMove.getLocation()]->getLetter() == 'u' || board[posMove.getLocation()]->isWhite() != fWhite))
       {
          bishopMoves.insert(posMove.getLocation());
       }
 
       while (posMove.isValid(moveStruct[i].move) &&
-       board.getBoard()[posMove.getLocation()]->getLetter() == 'u' )
+       board[posMove.getLocation()]->getLetter() == 'u' )
       {
-         if (board.getBoard()[posMove.getLocation()]->isWhite() != fWhite || board.getBoard()[posMove.getLocation()]->getLetter() == 'u')
+         if (board[posMove.getLocation()]->isWhite() != fWhite || board[posMove.getLocation()]->getLetter() == 'u')
          {
-            cout <<"COLOR: " << board.getBoard()[posMove.getLocation()]->isWhite() << endl;
+            cout <<"COLOR: " << board[posMove.getLocation()]->isWhite() << endl;
             posMove.addLocation(moveStruct[i].move);
             bishopMoves.insert(posMove.getLocation());
          }
@@ -74,7 +82,7 @@ set<int> Bishop::getMoves(Board& board)
 
 /*************************************
 DISPLAY
-Draw the Piece
+Draw the Bishop
 *************************************/
 void Bishop::display(ogstream& gout)
 {

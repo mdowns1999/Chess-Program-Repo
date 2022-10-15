@@ -21,7 +21,6 @@ private:
 
 public:
 
-   //Pawn();
    //Constructor
    Bishop(int r, int col, bool white);
 
@@ -29,6 +28,6 @@ public:
 
    char getLetter();
    virtual void display(ogstream& gout);
-   set<int> getMoves(Board& board);
+   set<int> getMoves(Piece** board);
 };
 

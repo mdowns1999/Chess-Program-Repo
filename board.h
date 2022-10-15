@@ -11,14 +11,11 @@
 #pragma once
 #include "position.h"
 #include "piece.h"
-
-//#include "space.h"
-//#include "move.h"
-
 #include "uiDraw.h"
 #include <iostream>
 //#include "pawn.h"
 //#include "piece.h"
+#include "uiInteract.h"
 using namespace std;
 
 class Piece;
@@ -37,16 +34,16 @@ public:
    Board();
 
    //Reset as a datatype?
-   Board(ogstream& gout, void reset()) { };
-   Board(Position pt) { this->pt = pt; };
-   Piece** getBoard() { return board;};
-   int getCurrentMove();
+   Board(ogstream& gout, void reset()) { }
+   Board(Position pt)   { this->pt = pt; }
+   Piece** getBoard()   { return board;}
+   int getCurrentMove() { return currentMove; }
    bool whiteTurn();
-   void display(Position posHover, Position posSel);
+   //void display(const Interface& ui, const set <int>& possible);
    //Piece get(Position pt);
    void free();
    void reset();
-   void move(Move move);
+   bool move(int positionFrom, int positionTo);
    //void assign(Piece piece);
 
 private:
