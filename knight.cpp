@@ -46,18 +46,25 @@ set<int> Knight::getMoves(Piece** board)
   {
        {15}, {17}, 
        {6},  {10},
-       {-6}, {-10},
-       {-15}, {-17}
+       {-10}, {-6},
+       {-17}, {-15}
 
   };
+  M2 moveStruct2[8] =
+  {
+                     {-1,  2}, { 1,  2},
+            {-2,  1},                    { 2,  1},
+            {-2, -1},                    { 2, -1},
+                     {-1, -2}, { 1, -2}
+   };
 
   //OWN FUNCTION
   for (int i = 0; i < 8; i++)
   {
      Position posMove(position, moveStruct[i].move);
 
-     if (posMove.isValid() && (board[posMove.getLocation()]->getLetter() == 'u' ||
-        board[posMove.getLocation()]->isWhite() != fWhite))
+     if (posMove.isValid() && (position.hasWrapped(moveStruct2[i].row, moveStruct2[i].col, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
+        board[posMove.getLocation()]->isWhite() != fWhite) )
         knightMoves.insert(posMove.getLocation());
   }
 

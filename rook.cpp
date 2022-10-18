@@ -43,21 +43,84 @@ set<int> Rook::getMoves(Piece** board)
    {
           {8},{-1},{1},{-8}
    };
+   M2 moveStruct2[4] =
+   {
+                         {0,  1},
+                {-1, 0},         {1, 0},
+                         {0, -1}
+   };
    
    Position posMove(position, 0);
    //OWN FUNCTION
+   for (int i = 0; i <4 ; i++)
+   {
+
+      int r = position.getRow() + moveStruct2[i].row;
+      int c = position.getColumn() + moveStruct2[i].col;
+
+      Position posMove(position, moveStruct[i].move);
+      while (r >= 1 && r < 9 && c >= 0 && c < 8)
+      {
+         cout << "R: " << r << endl;
+         cout << "C: " << c << endl;
+         if (posMove.isValid() && (position.hasWrapped(moveStruct2[i].row, moveStruct2[i].col, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
+            board[posMove.getLocation()]->isWhite() != fWhite))
+            rookMoves.insert(posMove.getLocation());
+
+         r += moveStruct2[i].row;
+         c += moveStruct2[i].col;
+      }
+
+      
+
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    for (int i = 0; i < 4; i++)
    {
       posMove.setLocation(position.getLocation() + moveStruct[i].move);
 
-      if (posMove.isValid() && (board[posMove.getLocation()]->getLetter() == 'u' || 
+      /*if (posMove.isValid() && (board[posMove.getLocation()]->getLetter() == 'u' || 
          board[posMove.getLocation()]->isWhite() != fWhite))
       {
          rookMoves.insert(posMove.getLocation());
       }
 
       while (posMove.isValid(moveStruct[i].move) &&
-       board[posMove.getLocation()]->getLetter() == 'u' )
+       board[posMove.getLocation()]->getLetter() == 'u'  )
       {
          if (board[posMove.getLocation()]->isWhite() != fWhite || 
             board[posMove.getLocation()]->getLetter() == 'u')
@@ -66,9 +129,10 @@ set<int> Rook::getMoves(Piece** board)
             posMove.addLocation(moveStruct[i].move);
             rookMoves.insert(posMove.getLocation());
          }
-      }
-      // position.getLocation() + (moveStruct[i].move * j) >= 0 && position.getLocation() + (moveStruct[i].move * j) <= 63 
+      }*/
 
+
+      // position.getLocation() + (moveStruct[i].move * j) >= 0 && position.getLocation() + (moveStruct[i].move * j) <= 63 
    }
 
    return rookMoves;

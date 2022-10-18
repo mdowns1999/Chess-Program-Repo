@@ -45,6 +45,12 @@ public:
 
    };
 
+   struct M2
+   {
+      int col;
+      int row;
+   };
+
    void assign(Position position);
    void assign(Piece piece);
    bool isWhite();

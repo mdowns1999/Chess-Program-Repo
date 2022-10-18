@@ -29,6 +29,7 @@ public:
    void set(int r, int c);
    void adjustRow(int dRow);
    void adjustCol(int dCol);
+   bool hasWrapped(int deltaRow, int deltaCol, Position newPosition);
 
    //Operators down below
 

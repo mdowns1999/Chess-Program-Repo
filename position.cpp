@@ -173,4 +173,30 @@ void Position::adjustRow(int dRow)
 void Position::adjustCol(int dCol)
 {
 
-};
+}
+bool Position::hasWrapped(int rowDelta, int colDelta, Position newPosition)
+{
+   int currentRow = getRow();
+   int newRow = newPosition.getRow();
+   int newCol = newPosition.getColumn();
+   cout << "********************************" << endl;
+  /* cout << "delta: " << delta << endl;
+   cout << "current row: " << currentRow << endl;
+   cout << "new row: " << newRow << endl;*/
+   //if(delta >= 7) 
+   //{
+   //   rowDelta = 1;
+   //   
+   //}
+   //else if (delta <= -7)
+   //{
+   //   rowDelta = -1;
+   //}
+
+   cout << "location + rowDelta" << location + rowDelta << endl;
+
+
+   return (getRow() + rowDelta == newRow) && getColumn() + colDelta == newCol;
+}
+
+;

@@ -51,14 +51,21 @@ set<int> King::getMoves(Piece** board)
 
    };
 
+   M2 moveStruct2[8]= 
+   {
+                {-1,  1}, {0,  1}, {1,  1},
+                {-1,  0},          {1,  0},
+                {-1, -1}, {0, -1}, {1, -1}       
+   };
+
    //OWN FUNCTION
    for (int i = 0; i < 8; i++)
    {
       Position posMove(position, moveStruct[i].move);
 
 
-      if (posMove.isValid() && (board[posMove.getLocation()]->getLetter() == 'u' || 
-         board[posMove.getLocation()]->isWhite() != fWhite) )
+      if (posMove.isValid() && (position.hasWrapped(moveStruct2[i].row, moveStruct2[i].col, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
+         board[posMove.getLocation()]->isWhite() != fWhite))
          kingMoves.insert(posMove.getLocation());
    }
 
