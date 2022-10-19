@@ -39,14 +39,14 @@ char Pawn::getLetter()
    if(posMove.isValid() && board[posMove.getLocation()]->getLetter() == 'u')
    {
       pawnMoves.insert(posMove.getLocation());
-
-   //   //Basic move 2 up. NOTE FIX LOGIC OF IS VALID
-     if (posMove.isValid() && board[posMove.getLocation() + (fWhite ? 8 : -8)]->getLetter() == 'u' && nMove == 0)
-     {
-        pawnMoves.insert(posMove.getLocation() + (fWhite ? 8 : -8));
-     }
+      //   //Basic move 2 up. NOTE FIX LOGIC OF IS VALID
+      if (nMove == 0 && posMove.isValid() && board[posMove.getLocation() + (fWhite ? 8 : -8)]->getLetter() == 'u')
+      {
+         pawnMoves.insert(posMove.getLocation() + (fWhite ? 8 : -8));
+      }
 
    }
+ 
 
    
    //Attack Left
@@ -82,6 +82,23 @@ char Pawn::getLetter()
        }
    }
 
+     //Promotion
+      //cout << "posMove.getLocation() + 1: " << board[posMove.getLocation() - 1]->getPosition().getRow() << endl;
+      //cout << "posMove.getLocation() " << board[posMove.getLocation()]->getPosition().getRow() << endl;
+      if (board[posMove.getLocation()]->getPosition().getRow() == 8 || board[posMove.getLocation()]->getPosition().getRow() == 1)
+      {
+         cout << "Promote" << endl;
+         int row = board[posMove.getLocation()]->getPosition().getRow();
+         int col = board[posMove.getLocation()]->getPosition().getColumn() + 2;
+
+         Piece* pQiece = new Queen(row, col, true);
+         //Piece* pQiece = new Piece(row, col, true);
+
+         delete board[posMove.getLocation()];
+         board[posMove.getLocation()] = pQiece;
+      }
+
+      
 
 
    // if (posMove.getColumn() <= 7)
@@ -113,4 +130,17 @@ char Pawn::getLetter()
  void Pawn::display(ogstream &gout) 
  {
     gout.drawPawn(position.getLocation(), fWhite);
+ };
+
+ void Pawn::addPromotion()
+ {
+    //cout << "PROMOTE" << endl;
+    //int row = board[posMove.getLocation()]->getPosition().getRow();
+    //int col = board[positionFrom]->getPosition().getColumn() - 1;
+    //Piece* pPiece = new Piece(row, col, true);
+
+    //// Delete old object
+    //delete board[positionFrom];
+    //board[positionFrom] = pPiece;
+
  };

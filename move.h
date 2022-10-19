@@ -10,6 +10,7 @@ private:
    Position source;
    Position dest;
    char piece;
+   bool promotion;
    bool enpassant;
    bool castleK;
    bool castleQ;
@@ -21,9 +22,11 @@ public:
    string getText();
    Position getSrc() { return source; };
    Position getDes() { return dest; };
+   void setSrc(Position srcPosition);
+   void setDes();
 
    //Getters
-   const char getPromotion() { return piece = 'P';       };
+   const bool getPromotion() { return promotion;       };
    const bool getEnpassant() { return enpassant = false; };
    const bool getCastleK()   { return castleK = false;   };
    const bool getCastleQ()   { return castleQ = false;   };
@@ -34,6 +37,7 @@ public:
    bool setCastleK();
    bool setCastleQ();
    bool setWhiteMove();
+   bool setPromotion() { promotion = true; return promotion; };
 
     //Operators Here
    //bool operator == (Move& move)

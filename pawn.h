@@ -9,6 +9,8 @@
 #pragma once
 #include "piece.h"
 #include "board.h"
+#include "queen.h"
+#include"move.h"
 #include <set>
 using namespace std;
 
@@ -27,5 +29,6 @@ public:
    char getLetter();
    virtual void display(ogstream &gout);
    set<int> getMoves(Piece** board);
+   void addPromotion();
 };
 

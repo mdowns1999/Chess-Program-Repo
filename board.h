@@ -13,13 +13,14 @@
 #include "piece.h"
 #include "uiDraw.h"
 #include <iostream>
+
 //#include "pawn.h"
 //#include "piece.h"
 #include "uiInteract.h"
 using namespace std;
 
 class Piece;
-class Move;
+//class Move;
 
 class Board
 {
@@ -28,6 +29,8 @@ private:
    int currentMove;
    Position pt;
    ogstream gout;
+   Position source;
+   Position dest;
 
 
 public:
@@ -46,7 +49,12 @@ public:
    bool move(int positionFrom, int positionTo);
    //void assign(Piece piece);
 
+   //Help COntrol Movement on Board
+   //Position getSrc() { return source; };
+   //Position getDes() { return dest; };
+   //void setSrc(Position srcPosition) { source = srcPosition; };
+
 private:
-   void swap(Position position1, Position position2);
+   void swap(int positionFrom, int positionTo);
    void assertBoard();
 };

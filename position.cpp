@@ -70,6 +70,7 @@ int Position::getY()
  ****************************************************************/
 bool Position::isValid()
 {
+   //(location >= 0 && location <= 63);
    return (location >= 0 && location <= 63);
 };
 

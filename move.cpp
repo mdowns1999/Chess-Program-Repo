@@ -24,3 +24,8 @@ bool Move::setWhiteMove()
 {
    return false;
 };
+
+void Move::setSrc(Position srcPosition)
+{
+   source = srcPosition;
+}

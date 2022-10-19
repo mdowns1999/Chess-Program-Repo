@@ -88,7 +88,8 @@ int main()
 
    //SET CHESS PIECES
    //WHITE PIECES
-   Rook* pWRook1 = new Rook(8, 7, false);
+   //new Rook(8, 7, false)
+   Rook* pWRook1 = new Rook(5, 4, false);
    board.getBoard()[pWRook1->getPosition().getLocation()] = pWRook1;
    Knight* pWKnight1 = new Knight(8, 6, false);
    board.getBoard()[pWKnight1->getPosition().getLocation()] = pWKnight1;
