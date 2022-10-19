@@ -66,22 +66,34 @@ set<int> Rook::getMoves(Piece** board)
 //             c += moves[i].col;
 //          }
 
-      int r = position.getRow() + moveStruct2[i].row;
-      int c = position.getColumn() + moveStruct2[i].col;
-
-      
+      int r = position.getRow();
+      int c = position.getColumn();
+      int count = 1;
+      Position posMove(position, moveStruct[i].move);
       //r >= 0 && r < 9 && c >= 0 && c < 8
       while (r >= 0 && r < 9 && c >= 0 && c < 9)
       {
-         Position posMove(position, moveStruct[i].move);
-         cout << "R: " << r << endl;
-         cout << "C: " << c << endl;
-         if (posMove.isValid() && (position.hasWrapped(moveStruct2[i].row, moveStruct2[i].col, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
+         Position posMove(position, moveStruct[i].move * count);
+         cout << "newPosition R: " << r << endl;
+         cout << "newPosition C: " << c << endl;
+         if (posMove.isValid() && (position.hasWrapped(moveStruct2[i].row * count, moveStruct2[i].col * count, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
             board[posMove.getLocation()]->isWhite() != fWhite))
+         {
             rookMoves.insert(posMove.getLocation());
+            cout << "Valid locations" << posMove.getLocation() << endl;
+            if (board[posMove.getLocation()]->getLetter() != 'u')
+            {
+               r = 100;
+            }
+         }
+         else
+            r = 100;
+         //posMove.setRow(posMove.getRow() + moveStruct2[i].row);
+         //posMove.setCol(posMove.getColumn() + moveStruct2[i].col);
+         r += moveStruct2[i].row;
+         c += moveStruct2[i].col;
+         count++;
 
-            r += moveStruct2[i].row;
-            c += moveStruct2[i].col;
 
 
       }
