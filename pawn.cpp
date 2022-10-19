@@ -83,15 +83,18 @@ char Pawn::getLetter()
    }
 
      //Promotion
-      //cout << "posMove.getLocation() + 1: " << board[posMove.getLocation() - 1]->getPosition().getRow() << endl;
-      //cout << "posMove.getLocation() " << board[posMove.getLocation()]->getPosition().getRow() << endl;
-      if (board[posMove.getLocation()]->getPosition().getRow() == 8 || board[posMove.getLocation()]->getPosition().getRow() == 1)
+      //cout << "posMove.getLocation() + 1: " << board[posMove.getLocation()]->getPosition().getRow() << endl;
+      //cout << "GET ROW " << posMove.getLocation()]->getPosition().getRow()<< endl;
+      if (board[posMove.getLocation()]->getPosition().getRow() == 1
+         || board[posMove.getLocation()]->getPosition().getRow() == 8)
       {
          cout << "Promote" << endl;
-         int row = board[posMove.getLocation()]->getPosition().getRow();
-         int col = board[posMove.getLocation()]->getPosition().getColumn() + 2;
-
-         Piece* pQiece = new Queen(row, col, true);
+         cout << "PROMOTE Row: " << board[posMove.getLocation()]->getPosition().getRow() << endl;
+         cout << "PROMOTE Col: " << board[posMove.getLocation()]->getPosition().getColumn() - 1 << endl;
+         int row2 = board[posMove.getLocation()]->getPosition().getRow();
+         int col2 = board[posMove.getLocation()]->getPosition().getColumn() - 1;
+         //board[posMove.getLocation()]->isWhite()
+         Piece* pQiece = new Queen(row2, col2, true);
          //Piece* pQiece = new Piece(row, col, true);
 
          delete board[posMove.getLocation()];
