@@ -89,11 +89,55 @@ bool Board::move(int positionFrom, int positionTo)
 
    // find the set of possible moves from our current location
    set <int> possiblePrevious = board[positionFrom]->getMoves(board);
-   
+   cout << "Row: " << board[positionTo]->getPosition().getRow()<< endl;
+   cout << "Col: " << board[positionTo]->getPosition().getColumn()<< endl;
    // only move there is the suggested move is on the set of possible moves
    if (possiblePrevious.find(positionTo) != possiblePrevious.end())
    {
-      swap(positionFrom, positionTo);
+      Position storePos = board[positionFrom]->getPosition();
+      board[positionFrom]->assign(board[positionTo]->getPosition());
+      board[positionTo]->assign(storePos);
+
+      // Swap Pointers
+      Piece* storePiece = board[positionTo];
+      board[positionTo] = board[positionFrom];
+      board[positionFrom] = storePiece;
+
+
+
+      //If we are going to Capture someone
+      if (board[positionFrom]->getLetter() != 'u')
+      {
+         cout << "CAPTURE!!!!" << endl;
+         int row = board[positionFrom]->getPosition().getRow();
+         int col = board[positionFrom]->getPosition().getColumn();
+         Piece* pPiece = new Piece(row, col, true);
+
+         // Delete old object
+         delete board[positionFrom];
+         board[positionFrom] = pPiece;
+
+
+      }
+
+      //PROMOTION
+      //    if (board[positionTo]->getPosition().getRow() == 1 
+      //   || board[positionTo]->getPosition().getRow() == 8)
+      //{
+      //   cout << "Promote" << endl;
+      //   cout << "PROMOTE Row: " << board[positionTo]->getPosition().getRow() << endl;
+      //   cout << "PROMOTE Col: " << board[positionTo]->getPosition().getColumn() - 1<< endl;
+      //   int row2 = board[positionTo]->getPosition().getRow();
+      //   int col2 = board[positionTo]->getPosition().getColumn() - 1;
+
+      //   Piece* pQiece = new Queen(row2, col2, board[positionTo]->isWhite());
+      //   ////Piece* pQiece = new Piece(row, col, true);
+
+      //   delete board[positionTo];
+      //   board[positionTo] = pQiece;
+      //}
+
+
 
       currentMove++;
       return true;
@@ -118,31 +162,7 @@ bool Board::move(int positionFrom, int positionTo)
 void Board::swap(int positionFrom, int positionTo)
 {
    //Swap locations of the objects
-   Position storePos = board[positionFrom]->getPosition();
-   board[positionFrom]->assign(board[positionTo]->getPosition());
-   board[positionTo]->assign(storePos);
 
-   // Swap Pointers
-   Piece* storePiece = board[positionTo];
-   board[positionTo] = board[positionFrom];
-   board[positionFrom] = storePiece;
-
-
-
-   //If we are going to Capture someone
-   if (board[positionFrom]->getLetter() != 'u')
-   {
-      cout << "CAPTURE!!!!" << endl;
-      int row = board[positionFrom]->getPosition().getRow();
-      int col = board[positionFrom]->getPosition().getColumn() - 1;
-      Piece* pPiece = new Piece(row, col, true);
-
-      // Delete old object
-      delete board[positionFrom];
-      board[positionFrom] = pPiece;
-
-
-   }
    //TEST PROMOTION
    //&&board[positionFrom]->getLetter() == 'p'
    //cout << board[positionFrom]->getPosition().getRow() << endl;

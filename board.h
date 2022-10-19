@@ -50,9 +50,10 @@ public:
    //void assign(Piece piece);
 
    //Help COntrol Movement on Board
-   //Position getSrc() { return source; };
-   //Position getDes() { return dest; };
-   //void setSrc(Position srcPosition) { source = srcPosition; };
+   Position getSrc() { return source; };
+   Position getDes() { return dest; };
+   void setDes(Position destination) { dest = destination; }
+   void setSrc(Position srcPosition) { source = srcPosition; };
 
 private:
    void swap(int positionFrom, int positionTo);
