@@ -81,25 +81,35 @@ char Pawn::getLetter()
           pawnMoves.insert(posMove.getLocation() + 1);
        }
    }
+      cout << "POS MOVE Location: " << board[posMove.getLocation() + 1]->getPosition().getLocation() << endl;
+      //Empassant
+      if (posMove.getColumn() < 8)
+      {
+         if (board[posMove.getLocation() + 9]->isWhite() != fWhite && board[posMove.getLocation() + 1]->getLetter() != 'u')
+         {
+            pawnMoves.insert(posMove.getLocation() + 9);
+         }
+      }
+
 
      //Promotion
       //cout << "posMove.getLocation() + 1: " << board[posMove.getLocation()]->getPosition().getRow() << endl;
-      //cout << "GET ROW " << posMove.getLocation()]->getPosition().getRow()<< endl;
-      if (board[posMove.getLocation()]->getPosition().getRow() == 1
-         || board[posMove.getLocation()]->getPosition().getRow() == 8)
-      {
-         cout << "Promote" << endl;
-         cout << "PROMOTE Row: " << board[posMove.getLocation()]->getPosition().getRow() << endl;
-         cout << "PROMOTE Col: " << board[posMove.getLocation()]->getPosition().getColumn() - 1 << endl;
-         int row2 = board[posMove.getLocation()]->getPosition().getRow();
-         int col2 = board[posMove.getLocation()]->getPosition().getColumn() - 1;
-         //board[posMove.getLocation()]->isWhite()
-         Piece* pQiece = new Queen(row2, col2, true);
-         //Piece* pQiece = new Piece(row, col, true);
+      //cout << "GET ROW " << board[posMove.getLocation()]->getPosition().getRow()<< endl;
+      //if (board[posMove.getLocation()]->getPosition().getRow() == 1
+      //   || board[posMove.getLocation()]->getPosition().getRow() == 8)
+      //{
+      //   cout << "Promote" << endl;
+      //   cout << "PROMOTE Row: " << board[posMove.getLocation()]->getPosition().getRow() << endl;
+      //   cout << "PROMOTE Col: " << board[posMove.getLocation()]->getPosition().getColumn() - 1 << endl;
+      //   int row2 = board[posMove.getLocation()]->getPosition().getRow();
+      //   int col2 = board[posMove.getLocation()]->getPosition().getColumn() - 1;
+      //   //board[posMove.getLocation()]->isWhite()
+      //   Piece* pQiece = new Queen(row2, col2, true);
+      //   //Piece* pQiece = new Piece(row, col, true);
 
-         delete board[posMove.getLocation()];
-         board[posMove.getLocation()] = pQiece;
-      }
+      //   delete board[posMove.getLocation()];
+      //   board[posMove.getLocation()] = pQiece;
+      //}
 
       
 
