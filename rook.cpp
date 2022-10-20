@@ -93,12 +93,7 @@ set<int> Rook::getMoves(Piece** board)
          r += moveStruct2[i].row;
          c += moveStruct2[i].col;
          count++;
-
-
-
-      }
-
-      
+      }  
 
    }
 
