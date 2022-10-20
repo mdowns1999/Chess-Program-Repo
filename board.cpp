@@ -116,26 +116,23 @@ bool Board::move(int positionFrom, int positionTo)
          // Delete old object
          delete board[positionFrom];
          board[positionFrom] = pPiece;
-
-
       }
 
       //PROMOTION
-      //    if (board[positionTo]->getPosition().getRow() == 1 
-      //   || board[positionTo]->getPosition().getRow() == 8)
-      //{
-      //   cout << "Promote" << endl;
-      //   cout << "PROMOTE Row: " << board[positionTo]->getPosition().getRow() << endl;
-      //   cout << "PROMOTE Col: " << board[positionTo]->getPosition().getColumn() - 1<< endl;
-      //   int row2 = board[positionTo]->getPosition().getRow();
-      //   int col2 = board[positionTo]->getPosition().getColumn() - 1;
+          if (board[positionTo]->getPosition().getRow() == 1 
+         || board[positionTo]->getPosition().getRow() == 8)
+      {
+         cout << "Promote" << endl;
+         cout << "PROMOTE Row: " << board[positionTo]->getPosition().getRow() << endl;
+         cout << "PROMOTE Col: " << board[positionTo]->getPosition().getColumn() - 1<< endl;
+         int row2 = board[positionTo]->getPosition().getRow();
+         int col2 = board[positionTo]->getPosition().getColumn() - 1;
 
-      //   Piece* pQiece = new Queen(row2, col2, board[positionTo]->isWhite());
-      //   ////Piece* pQiece = new Piece(row, col, true);
+         Piece* pQiece = new Queen(row2, col2, board[positionTo]->isWhite());
 
-      //   delete board[positionTo];
-      //   board[positionTo] = pQiece;
-      //}
+         delete board[positionTo];
+         board[positionTo] = pQiece;
+      }
 
 
 
