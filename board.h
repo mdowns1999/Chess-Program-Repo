@@ -33,20 +33,34 @@ private:
 
 
 public:
+   //Constructors
    Board();
-
-   //Reset as a datatype?
    Board(ogstream& gout, void reset()) { }
    Board(Position pt)   { this->pt = pt; }
+
+   //Return the Board
    Piece** getBoard()   { return board;}
+
+   //Get the Current Move
    int getCurrentMove() { return currentMove; }
+
+   //Is it Whites turn or not?
    bool whiteTurn() { return(currentMove % 2 == 0);}
+
+   
    void display( Interface& ui, set <int> possible);
    bool move(int positionFrom, int positionTo);
 
+   //Free the Spot in Memory
+   void free(int position, Piece* pPiece);
 
 private:
+   //These Methods are your normal moves that are used frequently
    void swap(int positionFrom, int positionTo);
    void capture(int positionFrom);
+
+   //These Methods Update the Board for these Special Moves
    void addPromotion(int positionTo);
+   void addEnpassant(int positionTo);
+   void addCastle(int positionTo);
 };

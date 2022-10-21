@@ -14,7 +14,10 @@
 #include "knight.h"
 #include "rook.h"
 
-
+ /*****************************************************************
+  * BOARD CONSTRUCTOR
+  * Set all the default variables and generate the board
+  ****************************************************************/
 Board::Board()
 {
    for (int i = 0; i < 64; i++)
@@ -45,13 +48,12 @@ Board::Board()
    Rook* pWRook2 = new Rook(8, 0, false);
    board[pWRook2->getPosition().getLocation()] = pWRook2;
 
-   //Generate Pawns
+   //Generate White Pawns
    for (int i = 0; i < 8; i++)
    {
       Pawn* pPawn = new Pawn(7, i, false);
       board[pPawn->getPosition().getLocation()] = pPawn;
    }
-
 
 
    //BLACK PIECES
@@ -73,13 +75,12 @@ Board::Board()
    Knight* pBKnight2 = new Knight(1, 6, true);
    board[pBKnight2->getPosition().getLocation()] = pBKnight2;
 
-   //Generate Pawns
+   //Generate Black Pawns
    for (int i = 0; i < 8; i++)
    {
       Pawn* pPawn = new Pawn(2, i, true);
       board[pPawn->getPosition().getLocation()] = pPawn;
    }
-
 };
 
 /*****************************************************************
@@ -140,43 +141,31 @@ bool Board::move(int positionFrom, int positionTo)
           addPromotion(positionTo);
       }
 
-      //Enpassant
-          if (board[positionTo]->getEmpassant())
-          {
-             //Based off the color will determine the direction of the pawn.
-             int direction = board[positionTo]->isWhite() ? -8 : 8;
+      //If the Move is an Enpassant move, we perform it
+      if (board[positionTo]->getEmpassant())
+      {
+          addEnpassant(positionTo);
+      }
 
-             int row = board[positionTo]->getPosition().getRow() - 1;
-             int col = board[positionTo]->getPosition().getColumn() - 1;
-
-             Piece* pPiece = new Piece(row, col, true);
-
-             delete board[positionTo + direction];
-             board[positionTo + direction] = pPiece;
-          }
-
-       //King Side Castle Move
-         if((board[positionTo]->getLetter() == 'k'  && positionTo == 62) 
-         || (board[positionTo]->getLetter() == 'K' && positionTo == 6))
-         {
-            swap(positionTo + 1, positionTo - 1);
-         }
-
-         //Queen Side Castle
-         if((board[positionTo]->getLetter() == 'k'  && positionTo == 58) 
-         || (board[positionTo]->getLetter() == 'K' && positionTo == 2))
-         {
-            swap(positionTo + 1, positionTo - 2);
-         }
+      // If the Move is a Castle, we perform it
+      addCastle(positionTo);
 
 
       currentMove++;
       return true;
    }
    return false;
-
 };
 
+/*****************************************************************
+ * FREE
+ * Free the memory in your computer
+ ****************************************************************/
+void Board::free(int position, Piece* pPiece)
+{
+   delete board[position];
+   board[position] = pPiece;
+}
 
 /*****************************************************************
  * SWAP
@@ -199,6 +188,7 @@ void Board::swap(int positionFrom, int positionTo)
 
 /*****************************************************************
  * CAPTURE
+ * Capture the Piece
  ****************************************************************/
 void Board::capture(int positionFrom)
 {
@@ -209,12 +199,15 @@ void Board::capture(int positionFrom)
       int col = board[positionFrom]->getPosition().getColumn() - 1;
       Piece* pPiece = new Piece(row, col, true);
 
-      // Delete old object
-      delete board[positionFrom];
-      board[positionFrom] = pPiece;
+      // Free old object
+      free(positionFrom, pPiece);
    }
 };
 
+/*****************************************************************
+* ADD PROMOTION
+* Promote the Pawn on the board
+*******************************************************************/
 void Board::addPromotion(int positionTo)
 {
 
@@ -223,7 +216,45 @@ void Board::addPromotion(int positionTo)
 
    Piece* pQiece = new Queen(row2, col2, board[positionTo]->isWhite());
 
-   delete board[positionTo];
-   board[positionTo] = pQiece;
-
+   //Free the Space
+   free(positionTo, pQiece);
 };
+
+/*****************************************************************
+* ADD ENPASSANT
+* Perform Enpassant on the board
+******************************************************************/
+void Board::addEnpassant(int positionTo)
+{
+   //Based off the color will determine the direction of the pawn.
+   int direction = board[positionTo]->isWhite() ? -8 : 8;
+
+   int row = board[positionTo]->getPosition().getRow() - 1;
+   int col = board[positionTo]->getPosition().getColumn() - 1;
+
+   Piece* pPiece = new Piece(row, col, true);
+
+   //Free the Space
+   free(positionTo + direction, pPiece);
+}
+
+/*****************************************************************
+* ADD CASTLE
+* Perform Castling on the board
+*******************************************************************/
+void Board::addCastle(int positionTo)
+{
+   //King Side Castle Move
+   if ((board[positionTo]->getLetter() == 'k' && positionTo == 62)
+      || (board[positionTo]->getLetter() == 'K' && positionTo == 6))
+   {
+      swap(positionTo + 1, positionTo - 1);
+   }
+
+   //Queen Side Castle
+   if ((board[positionTo]->getLetter() == 'k' && positionTo == 58)
+      || (board[positionTo]->getLetter() == 'K' && positionTo == 2))
+   {
+      swap(positionTo + 1, positionTo - 2);
+   }
+}

@@ -17,9 +17,9 @@ Position::Position(Position position, int move)
 
 
 /*****************************************************************
- * SET ROW
- * Sets row
- ****************************************************************/
+* SET ROW
+* Sets row
+******************************************************************/
 void Position::setRow(int r)
 {  
    int c = location % 8;
@@ -27,9 +27,9 @@ void Position::setRow(int r)
 };
 
 /*****************************************************************
- * SET COL
- * Set Column
- ****************************************************************/
+* SET COL
+* Set Column
+*****************************************************************/
 void Position::setCol(int c)
 {
    int r = location / 8;
@@ -46,5 +46,4 @@ bool Position::hasWrapped(int rowDelta, int colDelta, Position newPosition)
 
    return (getRow() + rowDelta == newRow) && getColumn() + colDelta == newCol;
 }
-
 ;

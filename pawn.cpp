@@ -23,6 +23,12 @@ Pawn::Pawn(int r, int c, bool white)
 }
 
 //Inherited Functions
+/*****************************************************************
+ * Pawn getMoves
+ * Pawn moves one or two spaces on first movement, then one space for
+ * each succeeding turn. Use Pawn's prescribed movement to check for
+ * possible moves.
+ ****************************************************************/
  set<int> Pawn::getMoves(Piece** board) 
  { 
    set<int> pawnMoves;
@@ -89,6 +95,10 @@ Pawn::Pawn(int r, int c, bool white)
     return pawnMoves;
  };
 
+/*****************************************************************
+ * Pawn display
+ * Draw a pawn.
+ ****************************************************************/
  void Pawn::display(ogstream &gout) 
  {
     gout.drawPawn(position.getLocation(), fWhite);

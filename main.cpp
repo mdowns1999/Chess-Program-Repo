@@ -53,7 +53,6 @@ void callBack(Interface* pUI, void *p)
  * Main is calls the display engine 
  * and callback
  *********************************/
-
 int main()
 {
    Interface ui("Chess");

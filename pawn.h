@@ -20,8 +20,6 @@ private:
    bool hasEmpassant;
 
 public:
-
-   //Pawn();
    //Constructor
    Pawn(int r, int col, bool white);
 

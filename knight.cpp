@@ -33,6 +33,8 @@ Get the Moves for the Knight Piece
 set<int> Knight::getMoves(Piece** board)
 {
   set<int> knightMoves;
+
+  //Moves the Piece can Perform
   move moves[8] =
   {
                      {-1,  2}, { 1,  2},

@@ -9,8 +9,8 @@
 #include "rook.h"
 
 /*************************************
-CONSTRUCTOR
-Set up the Rook attributes
+* CONSTRUCTOR
+* Set up the Rook attributes
 *************************************/
 Rook::Rook(int r, int c, bool white)
 {
@@ -23,12 +23,14 @@ Rook::Rook(int r, int c, bool white)
 }
 
 /*************************************
-GET MOVES
-Get the Moves for the Rook
+* GET MOVES
+* Get the Moves for the Rook
 *************************************/
 set<int> Rook::getMoves(Piece** board)
 {
    set<int> rookMoves;
+
+   //Moves the Piece can Perform
    move moves[4] =
    {
                          {0,  1},
@@ -46,13 +48,10 @@ set<int> Rook::getMoves(Piece** board)
       while (r >= 0 && r < 9 && c >= 0 && c < 9)
       {
          Position posMove(position, adjustment * count);
-         cout << "newPosition R: " << r << endl;
-         cout << "newPosition C: " << c << endl;
          if (posMove.isValid() && (position.hasWrapped(moves[i].row * count, moves[i].col * count, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
             board[posMove.getLocation()]->isWhite() != fWhite))
          {
             rookMoves.insert(posMove.getLocation());
-            cout << "Valid locations" << posMove.getLocation() << endl;
             if (board[posMove.getLocation()]->getLetter() != 'u')
             {
                r = 100;

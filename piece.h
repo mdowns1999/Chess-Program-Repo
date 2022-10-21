@@ -34,18 +34,24 @@ public:
    Piece();
    Piece(int r, int c, bool white);
 
+   //Set up a structure so we can put in the moves
    struct move
    {
       int col;
       int row;
    };
 
+   //Assign the Piece a position or a Piece
    void assign(Position position);
    void assign(Piece piece);
+
    bool isWhite() { return fWhite; }
    bool isMove() { return (nMove != 0); }
-   int getNMoves() { return nMove; }
+
    Position getPosition() { return position; }
+
+   //methods related to Move
+   int getNMoves() { return nMove; }
    bool justMoved();
    void setNMove(int moves) { nMove = moves; }
 

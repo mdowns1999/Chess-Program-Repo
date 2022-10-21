@@ -11,8 +11,8 @@
 #include "bishop.h"
 
 /*************************************
-CONSTRUCTOR
-Set up the Bishop attributes
+* CONSTRUCTOR
+* Set up the Bishop attributes
 *************************************/
 Bishop::Bishop(int r, int c, bool white)
 {
@@ -27,12 +27,14 @@ Bishop::Bishop(int r, int c, bool white)
 
 
 /*************************************
-GET MOVES
-Get the Moves for Bishop
+* GET MOVES
+* Get the Moves for Bishop
 *************************************/
 set<int> Bishop::getMoves(Piece** board)
 {
    set<int> bishopMoves;
+
+   //Moves the Piece can Perform
    move moves[4] =
     {
      {-1,  1}, {1,  1},
@@ -49,13 +51,10 @@ set<int> Bishop::getMoves(Piece** board)
       while (r >= 0 && r < 9 && c >= 0 && c < 9)
       {
          Position posMove(position, adjustment * count);
-         cout << "newPosition R: " << r << endl;
-         cout << "newPosition C: " << c << endl;
          if (posMove.isValid() && (position.hasWrapped(moves[i].row * count, moves[i].col * count, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
             board[posMove.getLocation()]->isWhite() != fWhite))
          {
             bishopMoves.insert(posMove.getLocation());
-            cout << "Valid locations" << posMove.getLocation() << endl;
             if (board[posMove.getLocation()]->getLetter() != 'u')
                r = 100;
          }
@@ -72,8 +71,8 @@ set<int> Bishop::getMoves(Piece** board)
 };
 
 /*************************************
-DISPLAY
-Draw the Bishop
+* DISPLAY
+* Draw the Bishop
 *************************************/
 void Bishop::display(ogstream& gout)
 {

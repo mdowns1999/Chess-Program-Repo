@@ -31,6 +31,8 @@ Get the Moves for the King
 set<int> King::getMoves(Piece** board)
 {
    set<int> kingMoves;
+
+   //Moves the Piece can Perform
    move moves[8]=
    {
                 {-1,  1}, {0,  1}, {1,  1},

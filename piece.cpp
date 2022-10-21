@@ -1,16 +1,31 @@
+/***********************************************************************
+ * Source File:
+ *    Piece
+ * Author:
+ *    Mike, Ben, and Star
+ * Summary:
+ * This is code will be the parent class for all the pieces for the chess
+ * game.
+ ************************************************************************/
+
 #include "piece.h"
 
-
+/*****************************************************************
+ * PIECE CONSTRUCTOR
+ * Set all the default variables
+ ****************************************************************/
 Piece::Piece()
 {
    fWhite = false;
    nMove = 0;
    lastMove = 0;
-   //position.setRow(r);
-   //position.setCol(c);
    letter = 'u';
 }
 
+/*****************************************************************
+* PIECE NON DEFAULT CONSTRUCTOR
+* Set all the variables
+****************************************************************/
 Piece::Piece(int r, int c, bool white) 
 {
    this->fWhite = white;
@@ -22,12 +37,12 @@ Piece::Piece(int r, int c, bool white)
 };
 
 /*****************************************************************
- * ASSIGN
- * Assign Piece a Position
- ****************************************************************/
+* ASSIGN
+* Assign Piece a Position
+******************************************************************/
 void Piece::assign(Position position)
 {
-
+   //Set Position
    this->position = position;
 
    //Increase the times the Piece Moved
@@ -35,22 +50,20 @@ void Piece::assign(Position position)
 };
 
 /*****************************************************************
- * ASSIGN
- * Assign the Piece
- ****************************************************************/
+* ASSIGN
+* Assign the Piece
+*****************************************************************/
 void Piece::assign(Piece piece)
 {
-
    this->position = piece.position;
    this->fWhite = piece.fWhite;
-
 };
 
 
 /*****************************************************************
- * JUST MOVED
- * Tells if Piece has just moved
- ****************************************************************/
+* JUST MOVED
+* Tells if Piece has just moved
+*****************************************************************/
 bool Piece::justMoved()
 {
    return false;
