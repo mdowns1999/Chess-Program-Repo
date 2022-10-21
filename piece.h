@@ -55,8 +55,8 @@ public:
    bool isMove();
    int getNMoves();
 
-   int getLastMove() { return lastMove; }
-   void setlastMove();
+   //int getLastMove() { return lastMove; }
+   //void setlastMove();
 
    Position getPosition();
    bool justMoved();

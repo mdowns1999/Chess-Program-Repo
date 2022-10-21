@@ -13,14 +13,12 @@
 #include "piece.h"
 #include "uiDraw.h"
 #include <iostream>
-
-//#include "pawn.h"
-//#include "piece.h"
 #include "uiInteract.h"
+#include <set>
 using namespace std;
 
 class Piece;
-//class Move;
+
 
 class Board
 {
@@ -33,6 +31,7 @@ private:
    Position dest;
 
 
+
 public:
    Board();
 
@@ -42,7 +41,7 @@ public:
    Piece** getBoard()   { return board;}
    int getCurrentMove() { return currentMove; }
    bool whiteTurn();
-   //void display(const Interface& ui, const set <int>& possible);
+   void display( Interface& ui, set <int> possible);
    //Piece get(Position pt);
    void free();
    void reset();

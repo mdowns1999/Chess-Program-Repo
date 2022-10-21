@@ -69,7 +69,28 @@ set<int> King::getMoves(Piece** board)
          kingMoves.insert(posMove.getLocation());
    }
 
+   //King Side Castle
+   if(!isMove() && 
+      (board[position.getLocation() + 3]->getLetter() == 'r' || 
+         board[position.getLocation() + 3]->getLetter() == 'R')
+         && !board[position.getLocation() + 3]->isMove()
+         && board[position.getLocation() + 1]->getLetter() == 'u'
+         && board[position.getLocation() + 2]->getLetter() == 'u')
+   {
+      kingMoves.insert(position.getLocation() + 2);
+   }
 
+   //Queen Side Castle
+   if (!isMove() &&
+      (board[position.getLocation() - 4 ]->getLetter() == 'r' ||
+         board[position.getLocation() - 4]->getLetter() == 'R')
+      && !board[position.getLocation() - 4]->isMove()
+      && board[position.getLocation() - 1]->getLetter() == 'u'
+      && board[position.getLocation() - 2]->getLetter() == 'u'
+      && board[position.getLocation() - 3]->getLetter() == 'u')
+   {
+      kingMoves.insert(position.getLocation() - 2);
+   }
 
    return kingMoves;
 };
