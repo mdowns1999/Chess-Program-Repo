@@ -25,33 +25,13 @@ King::King(int r, int c, bool white)
 }
 
 /*************************************
-GET LETTER
-Get the King Letter
-*************************************/
-char King::getLetter()
-{
-   return letter;
-}
-
-//virtual void display() {};
-
-/*************************************
 GET MOVES
 Get the Moves for the King
 *************************************/
 set<int> King::getMoves(Piece** board)
 {
    set<int> kingMoves;
-
-   M moveStruct[8] =
-   {
-        {7}, {8}, {9},
-        {-1},      {1},
-        {-9}, {-8},{-7}
-
-   };
-
-   M2 moveStruct2[8]= 
+   move moves[8]=
    {
                 {-1,  1}, {0,  1}, {1,  1},
                 {-1,  0},          {1,  0},
@@ -61,10 +41,11 @@ set<int> King::getMoves(Piece** board)
    //OWN FUNCTION
    for (int i = 0; i < 8; i++)
    {
-      Position posMove(position, moveStruct[i].move);
+      int adjustment = (moves[i].row * 8) + moves[i].col;
+      Position posMove(position, adjustment);
 
 
-      if (posMove.isValid() && (position.hasWrapped(moveStruct2[i].row, moveStruct2[i].col, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
+      if (posMove.isValid() && (position.hasWrapped(moves[i].row, moves[i].col, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
          board[posMove.getLocation()]->isWhite() != fWhite))
          kingMoves.insert(posMove.getLocation());
    }

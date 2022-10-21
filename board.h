@@ -40,21 +40,13 @@ public:
    Board(Position pt)   { this->pt = pt; }
    Piece** getBoard()   { return board;}
    int getCurrentMove() { return currentMove; }
-   bool whiteTurn();
+   bool whiteTurn() { return(currentMove % 2 == 0);}
    void display( Interface& ui, set <int> possible);
-   //Piece get(Position pt);
-   void free();
-   void reset();
    bool move(int positionFrom, int positionTo);
-   //void assign(Piece piece);
 
-   //Help COntrol Movement on Board
-   Position getSrc() { return source; };
-   Position getDes() { return dest; };
-   void setDes(Position destination) { dest = destination; }
-   void setSrc(Position srcPosition) { source = srcPosition; };
 
 private:
    void swap(int positionFrom, int positionTo);
-   void assertBoard();
+   void capture(int positionFrom);
+   void addPromotion(int positionTo);
 };

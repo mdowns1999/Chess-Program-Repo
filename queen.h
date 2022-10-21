@@ -23,7 +23,7 @@ public:
    Queen(int r, int col, bool white);
 
    //Inherited Functions
-   char getLetter();
+   char getLetter() { return letter; }
    virtual void display(ogstream& gout);
    set<int> getMoves(Piece** board);
 };

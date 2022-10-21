@@ -6,8 +6,6 @@
  * Summary:
  *    This is the Bishop in chess.
  ************************************************************************/
-
-
 #pragma once
 #include "piece.h"
 #include "board.h"
@@ -25,8 +23,7 @@ public:
    Bishop(int r, int col, bool white);
 
    //Inherited Functions
-
-   char getLetter();
+   char getLetter() { return letter; }
    virtual void display(ogstream& gout);
    set<int> getMoves(Piece** board);
 };

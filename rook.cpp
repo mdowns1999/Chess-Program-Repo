@@ -23,60 +23,32 @@ Rook::Rook(int r, int c, bool white)
 }
 
 /*************************************
-GET LETTER
-Get the Rook Letter
-*************************************/
-char Rook::getLetter()
-{
-   return letter;
-}
-
-/*************************************
 GET MOVES
 Get the Moves for the Rook
 *************************************/
 set<int> Rook::getMoves(Piece** board)
 {
    set<int> rookMoves;
-
-   M moveStruct[4] =
-   {
-          {8},{-1},{1},{-8}
-   };
-   M2 moveStruct2[4] =
+   move moves[4] =
    {
                          {0,  1},
                 {-1, 0},         {1, 0},
                          {0, -1}
    };
    
-   //Position posMove(position, 0);
-   //OWN FUNCTION
+   //Have the Piece Slide
    for (int i = 0; i < 4 ; i++)
    {
-      //       for (int i = 0; i < 4; i++)
-//       {
-//          r = row + moves[i].row;
-//          c = col + moves[i].col;
-//          while (r >= 0 && r < 8 && c >= 0 && c < 8 &&
-//             board[r * 8 + c] == ' ')
-//          {
-//             possible.insert(r * 8 + c);
-//             r += moves[i].row;
-//             c += moves[i].col;
-//          }
-
       int r = position.getRow();
       int c = position.getColumn();
       int count = 1;
-      Position posMove(position, moveStruct[i].move);
-      //r >= 0 && r < 9 && c >= 0 && c < 8
+      int adjustment = (moves[i].row * 8) + moves[i].col;
       while (r >= 0 && r < 9 && c >= 0 && c < 9)
       {
-         Position posMove(position, moveStruct[i].move * count);
+         Position posMove(position, adjustment * count);
          cout << "newPosition R: " << r << endl;
          cout << "newPosition C: " << c << endl;
-         if (posMove.isValid() && (position.hasWrapped(moveStruct2[i].row * count, moveStruct2[i].col * count, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
+         if (posMove.isValid() && (position.hasWrapped(moves[i].row * count, moves[i].col * count, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
             board[posMove.getLocation()]->isWhite() != fWhite))
          {
             rookMoves.insert(posMove.getLocation());
@@ -88,10 +60,9 @@ set<int> Rook::getMoves(Piece** board)
          }
          else
             r = 100;
-         //posMove.setRow(posMove.getRow() + moveStruct2[i].row);
-         //posMove.setCol(posMove.getColumn() + moveStruct2[i].col);
-         r += moveStruct2[i].row;
-         c += moveStruct2[i].col;
+ 
+         r += moves[i].row;
+         c += moves[i].col;
          count++;
       }  
 

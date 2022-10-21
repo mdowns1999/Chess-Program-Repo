@@ -9,7 +9,6 @@
 #pragma once
 #include "position.h"
 #include "board.h"
-#include "move.h"
 #include "uiDraw.h"
 #include<set>
 using namespace std;
@@ -29,21 +28,13 @@ protected:
    int lastMove;
    char letter = 'u';
 
-
-
 public:
 
    // Constructor
    Piece();
    Piece(int r, int c, bool white);
 
-   struct M
-   {
-      int move;
-
-   };
-
-   struct M2
+   struct move
    {
       int col;
       int row;
@@ -51,14 +42,10 @@ public:
 
    void assign(Position position);
    void assign(Piece piece);
-   bool isWhite();
-   bool isMove();
-   int getNMoves();
-
-   //int getLastMove() { return lastMove; }
-   //void setlastMove();
-
-   Position getPosition();
+   bool isWhite() { return fWhite; }
+   bool isMove() { return (nMove != 0); }
+   int getNMoves() { return nMove; }
+   Position getPosition() { return position; }
    bool justMoved();
    void setNMove(int moves) { nMove = moves; }
 

@@ -1,3 +1,11 @@
+/***********************************************************************
+ * Header File:
+ *    Board : The Board of Chess
+ * Author:
+ *   Ben, Star, and Mike
+ * Summary:
+ *    This keeps track of the chess board.
+ ************************************************************************/
 #include "board.h"
 #include "pawn.h"
 #include "king.h"
@@ -74,17 +82,6 @@ Board::Board()
 
 };
 
-
-/*****************************************************************
- * WHITE TURN
- * Is it Whites turn?
- ****************************************************************/
-bool Board::whiteTurn()
-{
-   return(currentMove % 2 == 0);
-
-};
-
 /*****************************************************************
  * DISPLAY
  * Display Board
@@ -113,30 +110,6 @@ void Board::display(Interface& ui, set <int> possible)
 };
 
 /*****************************************************************
- * GET
- * Get Piece Position
- ****************************************************************/
-//Piece get(Position position){};
-
-/*****************************************************************
- * FREE
- * Is something free
- ****************************************************************/
-void Board::free()
-{
-
-};
-
-/*****************************************************************
- * RESET
- * Reset the board
- ****************************************************************/
-void Board::reset()
-{
-
-};
-
-/*****************************************************************
  * MOVE
  * Move the Piece
  ****************************************************************/
@@ -148,83 +121,50 @@ bool Board::move(int positionFrom, int positionTo)
 
    // find the set of possible moves from our current location
    set <int> possiblePrevious = board[positionFrom]->getMoves(board);
-   cout << "Row: " << board[positionTo]->getPosition().getRow()<< endl;
-   cout << "Col: " << board[positionTo]->getPosition().getColumn()<< endl;
-
 
    // only move there is the suggested move is on the set of possible moves
    if (possiblePrevious.find(positionTo) != possiblePrevious.end())
    {
-      //Position storePos = board[positionFrom]->getPosition();
-      //board[positionFrom]->assign(board[positionTo]->getPosition());
-      //board[positionTo]->assign(storePos);
-
-      //// Swap Pointers
-      //Piece* storePiece = board[positionTo];
-      //board[positionTo] = board[positionFrom];
-      //board[positionFrom] = storePiece;
-
+      //Swap normal moves.
       swap(positionFrom, positionTo);
 
-
-
       //If we are going to Capture someone
-      if (board[positionFrom]->getLetter() != 'u')
+      capture(positionFrom);
+
+      //Can the piece Promote?
+      if ((board[positionTo]->getPosition().getRow() == 1 
+      || board[positionTo]->getPosition().getRow() == 8) 
+      && (board[positionTo]->getLetter() == 'P' || 
+      board[positionTo]->getLetter() == 'p'))
       {
-         cout << "CAPTURE!!!!" << endl;
-         int row = board[positionFrom]->getPosition().getRow();
-         int col = board[positionFrom]->getPosition().getColumn() - 1;
-         Piece* pPiece = new Piece(row, col, true);
-
-         // Delete old object
-         delete board[positionFrom];
-         board[positionFrom] = pPiece;
-      }
-
-      //PROMOTION
-          if ((board[positionTo]->getPosition().getRow() == 1 
-         || board[positionTo]->getPosition().getRow() == 8) 
-             && (board[positionTo]->getLetter() == 'P' || 
-                board[positionTo]->getLetter() == 'p'))
-      {
-         cout << "Promote" << endl;
-         cout << "PROMOTE Row: " << board[positionTo]->getPosition().getRow() << endl;
-         cout << "PROMOTE Col: " << board[positionTo]->getPosition().getColumn() - 1<< endl;
-         int row2 = board[positionTo]->getPosition().getRow();
-         int col2 = board[positionTo]->getPosition().getColumn() - 1;
-
-         Piece* pQiece = new Queen(row2, col2, board[positionTo]->isWhite());
-
-         delete board[positionTo];
-         board[positionTo] = pQiece;
+          addPromotion(positionTo);
       }
 
       //Enpassant
           if (board[positionTo]->getEmpassant())
           {
+             //Based off the color will determine the direction of the pawn.
              int direction = board[positionTo]->isWhite() ? -8 : 8;
-             cout << "Empassant" << endl;
 
+             int row = board[positionTo]->getPosition().getRow() - 1;
+             int col = board[positionTo]->getPosition().getColumn() - 1;
 
-             cout << "Empassant Row: " << board[positionTo]->getPosition().getLocation() + 8 << endl;
-             //cout << "Empassant Col: " << board[positionTo]->getPosition().getColumn() - 1 << endl;
-             int row2 = board[positionTo]->getPosition().getRow() - 1;
-             int col2 = board[positionTo]->getPosition().getColumn() - 1;
-
-             Piece* pPiece = new Piece(row2, col2, true);
+             Piece* pPiece = new Piece(row, col, true);
 
              delete board[positionTo + direction];
              board[positionTo + direction] = pPiece;
           }
 
        //King Side Castle Move
-         if((board[positionTo]->getLetter() == 'k'  && positionTo == 62) || (board[positionTo]->getLetter() == 'K' && positionTo == 6))
+         if((board[positionTo]->getLetter() == 'k'  && positionTo == 62) 
+         || (board[positionTo]->getLetter() == 'K' && positionTo == 6))
          {
             swap(positionTo + 1, positionTo - 1);
          }
 
          //Queen Side Castle
-         if((board[positionTo]->getLetter() == 'k'  && positionTo == 58) || (board[positionTo]->getLetter() == 'K' && positionTo == 2))
+         if((board[positionTo]->getLetter() == 'k'  && positionTo == 58) 
+         || (board[positionTo]->getLetter() == 'K' && positionTo == 2))
          {
             swap(positionTo + 1, positionTo - 2);
          }
@@ -237,23 +177,14 @@ bool Board::move(int positionFrom, int positionTo)
 
 };
 
-/*****************************************************************
- * ASSIGN
- * Assign the Piece
- ****************************************************************/
-//void Board::assign(Piece piece)
-//{
-
-//};
 
 /*****************************************************************
  * SWAP
- * Swap th ePieces
+ * Swap the Pieces
  ****************************************************************/
 void Board::swap(int positionFrom, int positionTo)
 {
    //Swap locations of the objects
-
    Position storePos = board[positionFrom]->getPosition();
    board[positionFrom]->assign(board[positionTo]->getPosition());
    board[positionTo]->assign(storePos);
@@ -267,10 +198,32 @@ void Board::swap(int positionFrom, int positionTo)
 };
 
 /*****************************************************************
- * ASSERT BOARD
- * Check the board
+ * CAPTURE
  ****************************************************************/
-void Board::assertBoard()
+void Board::capture(int positionFrom)
 {
+   //If the space is unoccupied, then we kill the piece.
+   if (board[positionFrom]->getLetter() != 'u')
+   {
+      int row = board[positionFrom]->getPosition().getRow();
+      int col = board[positionFrom]->getPosition().getColumn() - 1;
+      Piece* pPiece = new Piece(row, col, true);
+
+      // Delete old object
+      delete board[positionFrom];
+      board[positionFrom] = pPiece;
+   }
+};
+
+void Board::addPromotion(int positionTo)
+{
+
+   int row2 = board[positionTo]->getPosition().getRow();
+   int col2 = board[positionTo]->getPosition().getColumn() - 1;
+
+   Piece* pQiece = new Queen(row2, col2, board[positionTo]->isWhite());
+
+   delete board[positionTo];
+   board[positionTo] = pQiece;
 
 };

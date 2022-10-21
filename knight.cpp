@@ -25,14 +25,6 @@ Knight::Knight(int r, int c, bool white)
   this->letter = fWhite ? 'K' : 'k';
 }
 
-/*************************************
-GET LETTER
-Get the Knight Letter
-*************************************/
-char Knight::getLetter()
-{
-  return letter;
-}
 
 /*************************************
 GET MOVES
@@ -41,16 +33,7 @@ Get the Moves for the Knight Piece
 set<int> Knight::getMoves(Piece** board)
 {
   set<int> knightMoves;
-
-  M moveStruct[8] =
-  {
-       {15}, {17}, 
-       {6},  {10},
-       {-10}, {-6},
-       {-17}, {-15}
-
-  };
-  M2 moveStruct2[8] =
+  move moves[8] =
   {
                      {-1,  2}, { 1,  2},
             {-2,  1},                    { 2,  1},
@@ -58,12 +41,13 @@ set<int> Knight::getMoves(Piece** board)
                      {-1, -2}, { 1, -2}
    };
 
-  //OWN FUNCTION
+  //Move the Knight based off of its movements
   for (int i = 0; i < 8; i++)
   {
-     Position posMove(position, moveStruct[i].move);
+    int adjustment = (moves[i].row * 8) + moves[i].col;
+     Position posMove(position, adjustment);
 
-     if (posMove.isValid() && (position.hasWrapped(moveStruct2[i].row, moveStruct2[i].col, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
+     if (posMove.isValid() && (position.hasWrapped(moves[i].row, moves[i].col, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
         board[posMove.getLocation()]->isWhite() != fWhite) )
         knightMoves.insert(posMove.getLocation());
   }

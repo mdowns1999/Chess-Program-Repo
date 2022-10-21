@@ -23,16 +23,6 @@ Queen::Queen(int r, int c, bool white)
    position.setCol(c);
    this->letter = fWhite ? 'Q' : 'q';
 }
-
-/*************************************
-GET LETTER
-Get the Queen Letter
-*************************************/
-char Queen::getLetter()
-{
-   return letter;
-}
-
 /*************************************
 GET MOVES
 Get the Moves for the Queen Piece
@@ -40,48 +30,29 @@ Get the Moves for the Queen Piece
 set<int> Queen::getMoves(Piece** board)
 {
    set<int> queenMoves;
-   M moveStruct[8] =
-   {
-        {7}, {8}, {9},
-        {-1},      {1},
-        {-9}, {-8},{-7}
-
-   };
-   M2 moveStruct2[8] =
+   move moves[8] =
              {
                 {-1,  1}, {0,  1}, {1,  1},
                 {-1,  0},          {1,  0},
                 {-1, -1}, {0, -1}, {1, -1}
              };
+   
+   int size = sizeof(moves) / sizeof(moves[0]);
 
-
-   Position posMove(position, 0);
-   //OWN FUNCTION
-   for (int i = 0; i < 8; i++)
+   ////Have the Piece Slide
+   for (int i = 0; i < size; i++)
    {
-      //       for (int i = 0; i < 4; i++)
-//       {
-//          r = row + moves[i].row;
-//          c = col + moves[i].col;
-//          while (r >= 0 && r < 8 && c >= 0 && c < 8 &&
-//             board[r * 8 + c] == ' ')
-//          {
-//             possible.insert(r * 8 + c);
-//             r += moves[i].row;
-//             c += moves[i].col;
-//          }
-
       int r = position.getRow();
       int c = position.getColumn();
       int count = 1;
-      Position posMove(position, moveStruct[i].move);
-      //r >= 0 && r < 9 && c >= 0 && c < 8
+      int adjustment = (moves[i].row * 8) + moves[i].col;
       while (r >= 0 && r < 9 && c >= 0 && c < 9)
       {
-         Position posMove(position, moveStruct[i].move * count);
+         Position posMove(position, adjustment * count);
          cout << "newPosition R: " << r << endl;
          cout << "newPosition C: " << c << endl;
-         if (posMove.isValid() && (position.hasWrapped(moveStruct2[i].row * count, moveStruct2[i].col * count, posMove)) && (board[posMove.getLocation()]->getLetter() == 'u' ||
+         if (posMove.isValid() && (position.hasWrapped(moves[i].row * count, moves[i].col * count, posMove)) && 
+            (board[posMove.getLocation()]->getLetter() == 'u' ||
             board[posMove.getLocation()]->isWhite() != fWhite))
          {
             queenMoves.insert(posMove.getLocation());
@@ -93,34 +64,12 @@ set<int> Queen::getMoves(Piece** board)
          }
          else
             r = 100;
-         //posMove.setRow(posMove.getRow() + moveStruct2[i].row);
-         //posMove.setCol(posMove.getColumn() + moveStruct2[i].col);
-         r += moveStruct2[i].row;
-         c += moveStruct2[i].col;
+
+         r += moves[i].row;
+         c += moves[i].col;
          count++;
       }
    }
-
-  /* for (int i = 0; i < 8; i++)
-   {
-      posMove.setLocation(position.getLocation() + moveStruct[i].move);
-
-      if (posMove.isValid() && (board[posMove.getLocation()]->getLetter() == 'u' || board[posMove.getLocation()]->isWhite() != fWhite))
-      {
-         queenMoves.insert(posMove.getLocation());
-      }
-
-      while (posMove.isValid(moveStruct[i].move) &&
-       board[posMove.getLocation()]->getLetter() == 'u' )
-      {
-         if (board[posMove.getLocation()]->isWhite() != fWhite || board[posMove.getLocation()]->getLetter() == 'u')
-         {
-            cout <<"COLOR: " << board[posMove.getLocation()]->isWhite() << endl;
-            posMove.addLocation(moveStruct[i].move);
-            queenMoves.insert(posMove.getLocation());
-         }
-      }
-   }*/
       return queenMoves;
 };
 
