@@ -69,6 +69,8 @@ set<int> King::getMoves(Piece** board)
          kingMoves.insert(posMove.getLocation());
    }
 
+
+
    return kingMoves;
 };
 

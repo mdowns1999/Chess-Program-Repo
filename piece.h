@@ -24,12 +24,10 @@ class Piece
 protected:
    Position position;
    bool fWhite;
+   bool moved;
    int nMove;
    int lastMove;
-   //int r;
-   //int c;
    char letter = 'u';
-   //Board board;
 
 
 
@@ -56,6 +54,10 @@ public:
    bool isWhite();
    bool isMove();
    int getNMoves();
+
+   int getLastMove() { return lastMove; }
+   void setlastMove();
+
    Position getPosition();
    bool justMoved();
    void setNMove(int moves) { nMove = moves; }
@@ -64,6 +66,7 @@ public:
    virtual char getLetter() { return letter; }
    virtual void display(ogstream &gout) {}
    virtual set<int> getMoves(Piece** board) { return set<int>(); }
+   virtual bool getEmpassant() {return false;}
 };
 
 

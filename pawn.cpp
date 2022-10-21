@@ -19,6 +19,7 @@ Pawn::Pawn(int r, int c, bool white)
    position.setRow(r);
    position.setCol(c);
    this->letter = fWhite ? 'P' : 'p';
+   hasEmpassant = false;
 }
 
 //Inherited Functions
@@ -30,8 +31,8 @@ char Pawn::getLetter()
 
  set<int> Pawn::getMoves(Piece** board) 
  { 
-    set<int> pawnMoves;
-   
+   set<int> pawnMoves;
+   updateEmpassant(false);
    Position posMove(position, fWhite ? 8 : -8);
    
    //Basic move 1 up
@@ -58,19 +59,6 @@ char Pawn::getLetter()
        {
           pawnMoves.insert(posMove.getLocation() - 1);
        }
-
-      // posMove.setRow(posMove.getRow() + fWhite ? 1 : -1);
-
-      //  if (board.getBoard()[posMove.getLocation()]->getLetter() != board.getBoard()[posMove.getLocation()]->isWhite() ? 'P' : 'p')
-      //  {
-      //     if (board.getBoard()[posMove.getLocation()]->getNMoves() == 1)
-      //     {
-      //        pawnMoves.insert(posMove.getLocation());
-      //     }
-      //  }
-
-      //  posMove.setRow(posMove.getRow() + fWhite ? -1 : -1);
-      //  posMove.setCol(posMove.getColumn() + 1);
     }
 
    // //Attack Right
@@ -81,61 +69,40 @@ char Pawn::getLetter()
           pawnMoves.insert(posMove.getLocation() + 1);
        }
    }
-      cout << "POS MOVE Location: " << board[posMove.getLocation() + 1]->getPosition().getLocation() << endl;
+      //cout << "POS MOVE Location: " << board[posMove.getLocation()]->getPosition().getLocation() << endl;
+      //cout << "POS MOVE Location+ 1   : " << board[posMove.getLocation() + 1]->getPosition().getLocation() << endl;
+      //cout << "POS MOVE Location- 7   : " << board[posMove.getLocation() - 7]->getPosition().getLocation() << endl;
+      
+      
       //Empassant
       if (posMove.getColumn() < 8)
       {
-         if (board[posMove.getLocation() + 9]->isWhite() != fWhite && board[posMove.getLocation() + 1]->getLetter() != 'u')
+         int directionRight = isWhite() ? -7 : 9;
+         cout << "What is your Letter?: " << board[posMove.getLocation() + directionRight]->getLetter() << endl;
+         if ((board[posMove.getLocation() + directionRight]->getLetter() == 'P' 
+            || board[posMove.getLocation() + directionRight]->getLetter() == 'p')&&
+            board[posMove.getLocation() + directionRight]->isWhite() != fWhite &&
+            board[posMove.getLocation() + directionRight]->getNMoves() == 1)// &&
+            //board[posMove.getLocation() + directionRight]->getLetter() != 'u')
          {
-            pawnMoves.insert(posMove.getLocation() + 9);
+            pawnMoves.insert(posMove.getLocation() + 1);
+            updateEmpassant(true);
+         }
+      }
+      if (posMove.getColumn() > 1)
+      {
+         int directionLeft = isWhite() ? -9 : 7;
+         if ((board[posMove.getLocation() + directionLeft]->getLetter() == 'P'
+            || board[posMove.getLocation() + directionLeft]->getLetter() == 'p') &&
+            board[posMove.getLocation() + directionLeft]->isWhite() != fWhite &&
+            board[posMove.getLocation() + directionLeft]->getNMoves() == 1)// &&
+         //board[posMove.getLocation() + directionLeft]->getLetter() != 'u')
+         {
+            pawnMoves.insert(posMove.getLocation() - 1);
+            updateEmpassant(true);
          }
       }
 
-
-     //Promotion
-      //cout << "posMove.getLocation() + 1: " << board[posMove.getLocation()]->getPosition().getRow() << endl;
-      //cout << "GET ROW " << board[posMove.getLocation()]->getPosition().getRow()<< endl;
-      //if (board[posMove.getLocation()]->getPosition().getRow() == 1
-      //   || board[posMove.getLocation()]->getPosition().getRow() == 8)
-      //{
-      //   cout << "Promote" << endl;
-      //   cout << "PROMOTE Row: " << board[posMove.getLocation()]->getPosition().getRow() << endl;
-      //   cout << "PROMOTE Col: " << board[posMove.getLocation()]->getPosition().getColumn() - 1 << endl;
-      //   int row2 = board[posMove.getLocation()]->getPosition().getRow();
-      //   int col2 = board[posMove.getLocation()]->getPosition().getColumn() - 1;
-      //   //board[posMove.getLocation()]->isWhite()
-      //   Piece* pQiece = new Queen(row2, col2, true);
-      //   //Piece* pQiece = new Piece(row, col, true);
-
-      //   delete board[posMove.getLocation()];
-      //   board[posMove.getLocation()] = pQiece;
-      //}
-
-      
-
-
-   // if (posMove.getColumn() <= 7)
-   // {
-   //    posMove.setCol(posMove.getColumn() + 1);
-
-   //    if (board.getBoard()[posMove.getLocation()]->getLetter() != letter && board.getBoard()[posMove.getLocation()]->getLetter() != 'u')
-   //    {
-   //       pawnMoves.insert(posMove.getLocation());
-   //    }
-
-   //    posMove.setRow(fWhite ? 1 : -1);
-
-   //    if (board.getBoard()[posMove.getLocation()]->getLetter() != board.getBoard()[posMove.getLocation()]->isWhite() ? 'P' : 'p')
-   //    {
-   //       if (board.getBoard()[posMove.getLocation()]->getNMoves() == 1)
-   //       {
-   //          pawnMoves.insert(board.getBoard()[posMove.getLocation()]->isWhite() ? posMove.getLocation() - 8 : posMove.getLocation() + 8);
-   //       }
-   //    }
-
-   //    posMove.setRow(fWhite ? -1 : 1);
-   //    posMove.setCol(posMove.getColumn() - 1);
-   // }
 
     return pawnMoves;
  };

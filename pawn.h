@@ -18,6 +18,7 @@ class Pawn: public Piece
 {
 private:
    char letter;
+   bool hasEmpassant;
 
 public:
 
@@ -30,5 +31,7 @@ public:
    virtual void display(ogstream &gout);
    set<int> getMoves(Piece** board);
    void addPromotion();
+   void updateEmpassant(bool update) {hasEmpassant = update;}
+   bool getEmpassant() {return hasEmpassant;}
 };
 

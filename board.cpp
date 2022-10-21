@@ -91,6 +91,8 @@ bool Board::move(int positionFrom, int positionTo)
    set <int> possiblePrevious = board[positionFrom]->getMoves(board);
    cout << "Row: " << board[positionTo]->getPosition().getRow()<< endl;
    cout << "Col: " << board[positionTo]->getPosition().getColumn()<< endl;
+
+
    // only move there is the suggested move is on the set of possible moves
    if (possiblePrevious.find(positionTo) != possiblePrevious.end())
    {
@@ -110,7 +112,7 @@ bool Board::move(int positionFrom, int positionTo)
       {
          cout << "CAPTURE!!!!" << endl;
          int row = board[positionFrom]->getPosition().getRow();
-         int col = board[positionFrom]->getPosition().getColumn();
+         int col = board[positionFrom]->getPosition().getColumn() - 1;
          Piece* pPiece = new Piece(row, col, true);
 
          // Delete old object
@@ -118,9 +120,10 @@ bool Board::move(int positionFrom, int positionTo)
          board[positionFrom] = pPiece;
       }
 
+      //&& board[positionFrom]->getLetter() == 'P' || board[positionFrom]->getLetter() == 'p'
       //PROMOTION
-          if (board[positionTo]->getPosition().getRow() == 1 
-         || board[positionTo]->getPosition().getRow() == 8)
+          if ((board[positionTo]->getPosition().getRow() == 1 
+         || board[positionTo]->getPosition().getRow() == 8) )
       {
          cout << "Promote" << endl;
          cout << "PROMOTE Row: " << board[positionTo]->getPosition().getRow() << endl;
@@ -133,6 +136,25 @@ bool Board::move(int positionFrom, int positionTo)
          delete board[positionTo];
          board[positionTo] = pQiece;
       }
+          // && (board[positionFrom]->getEmpassant())
+          cout << board[positionTo]->getEmpassant() << endl;
+      //Empassant
+          if (board[positionTo]->getEmpassant())
+          {
+             int direction = board[positionTo]->isWhite() ? -8 : 8;
+             cout << "Empassant" << endl;
+
+
+             cout << "Empassant Row: " << board[positionTo]->getPosition().getLocation() + 8 << endl;
+             //cout << "Empassant Col: " << board[positionTo]->getPosition().getColumn() - 1 << endl;
+             int row2 = board[positionTo]->getPosition().getRow() - 1;
+             int col2 = board[positionTo]->getPosition().getColumn() - 1;
+
+             Piece* pPiece = new Piece(row2, col2, true);
+
+             delete board[positionTo + direction];
+             board[positionTo + direction] = pPiece;
+          }
 
 
 
