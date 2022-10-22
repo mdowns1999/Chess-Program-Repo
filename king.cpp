@@ -28,7 +28,7 @@ King::King(int r, int c, bool white)
 GET MOVES
 Get the Moves for the King
 *************************************/
-set<int> King::getMoves(Piece** board)
+set<int> King::getMoves(Piece** board, int lastMove)
 {
    set<int> kingMoves;
 

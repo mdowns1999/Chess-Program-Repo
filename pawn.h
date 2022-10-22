@@ -26,7 +26,7 @@ public:
    //Inherited Functions
    char getLetter() { return letter; }
    virtual void display(ogstream &gout);
-   set<int> getMoves(Piece** board);
+   set<int> getMoves(Piece** board, int lastMove);
    void updateEmpassant(bool update) {hasEmpassant = update;}
    bool getEmpassant() {return hasEmpassant;}
 };

@@ -36,7 +36,7 @@ void callBack(Interface* pUI, void *p)
       pUI->clearSelectPosition();
    else if (currLocation != -1)
       if (pBoard->getBoard()[currLocation]->isWhite() != whiteTurn)
-         possible = pBoard->getBoard()[currLocation]->getMoves(pBoard->getBoard());
+         possible = pBoard->getBoard()[currLocation]->getMoves(pBoard->getBoard(), pBoard->getLastMove());
 
    // if we clicked on a blank spot, then it is not selected
    if (currLocation != -1 && pBoard->getBoard()[currLocation]->getLetter() == 'u')

@@ -29,7 +29,7 @@ Pawn::Pawn(int r, int c, bool white)
  * each succeeding turn. Use Pawn's prescribed movement to check for
  * possible moves.
  ****************************************************************/
- set<int> Pawn::getMoves(Piece** board) 
+ set<int> Pawn::getMoves(Piece** board, int lastMove)
  { 
    set<int> pawnMoves;
    updateEmpassant(false);
@@ -63,36 +63,37 @@ Pawn::Pawn(int r, int c, bool white)
       {
          pawnMoves.insert(posMove.getLocation() + 1);
       }
+   }  
+      //Enpassant 
+   if (posMove.getColumn() < 8)
+   {
+        
+      int directionRight = isWhite() ? -7 : 9;
+      if (position.getLocation() + 1 == lastMove 
+         && (board[posMove.getLocation() + directionRight]->getLetter() == 'P' 
+         || board[posMove.getLocation() + directionRight]->getLetter() == 'p')
+         && board[posMove.getLocation() + directionRight]->isWhite() != fWhite 
+         && board[posMove.getLocation() + directionRight]->getNMoves() == 1)
+      {
+          pawnMoves.insert(posMove.getLocation() + 1);
+          updateEmpassant(true);
+      }
    }
 
-      
-      //Empassant
-     if (posMove.getColumn() < 8)
-     {
-        int directionRight = isWhite() ? -7 : 9;
-        if ((board[posMove.getLocation() + directionRight]->getLetter() == 'P' 
-            || board[posMove.getLocation() + directionRight]->getLetter() == 'p')&&
-            board[posMove.getLocation() + directionRight]->isWhite() != fWhite &&
-            board[posMove.getLocation() + directionRight]->getNMoves() == 1)
-        {
-            pawnMoves.insert(posMove.getLocation() + 1);
-            updateEmpassant(true);
-        }
-     }
-
-     if (posMove.getColumn() > 1)
-     {
-        int directionLeft = isWhite() ? -9 : 7;
-        if ((board[posMove.getLocation() + directionLeft]->getLetter() == 'P'
-            || board[posMove.getLocation() + directionLeft]->getLetter() == 'p') &&
-            board[posMove.getLocation() + directionLeft]->isWhite() != fWhite &&
-            board[posMove.getLocation() + directionLeft]->getNMoves() == 1)
-        {
-            pawnMoves.insert(posMove.getLocation() - 1);
-            updateEmpassant(true);
-        }
-     }
-    return pawnMoves;
+   if (posMove.getColumn() > 1)
+   {
+      int directionLeft = isWhite() ? -9 : 7;
+      if (position.getLocation() - 1 == lastMove
+          && (board[posMove.getLocation() + directionLeft]->getLetter() == 'P'
+          || board[posMove.getLocation() + directionLeft]->getLetter() == 'p') 
+          && board[posMove.getLocation() + directionLeft]->isWhite() != fWhite
+          && board[posMove.getLocation() + directionLeft]->getNMoves() == 1)
+       {
+           pawnMoves.insert(posMove.getLocation() - 1);
+           updateEmpassant(true);
+       }
+   }
+   return pawnMoves;
  };
 
 /*****************************************************************

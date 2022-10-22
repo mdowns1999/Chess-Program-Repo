@@ -29,6 +29,7 @@ private:
    ogstream gout;
    Position source;
    Position dest;
+   int lastMove;
 
 
 
@@ -47,7 +48,9 @@ public:
    //Is it Whites turn or not?
    bool whiteTurn() { return(currentMove % 2 == 0);}
 
-   
+   //Get last move
+   int getLastMove() { return lastMove; }
+
    void display( Interface& ui, set <int> possible);
    bool move(int positionFrom, int positionTo);
 

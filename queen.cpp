@@ -27,7 +27,7 @@ Queen::Queen(int r, int c, bool white)
 * GET MOVES
 * Get the Moves for the Queen Piece
 *************************************/
-set<int> Queen::getMoves(Piece** board)
+set<int> Queen::getMoves(Piece** board, int lastMove)
 {
    set<int> queenMoves;
 

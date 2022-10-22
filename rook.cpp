@@ -26,7 +26,7 @@ Rook::Rook(int r, int c, bool white)
 * GET MOVES
 * Get the Moves for the Rook
 *************************************/
-set<int> Rook::getMoves(Piece** board)
+set<int> Rook::getMoves(Piece** board, int lastMove)
 {
    set<int> rookMoves;
 

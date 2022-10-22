@@ -30,7 +30,7 @@ Bishop::Bishop(int r, int c, bool white)
 * GET MOVES
 * Get the Moves for Bishop
 *************************************/
-set<int> Bishop::getMoves(Piece** board)
+set<int> Bishop::getMoves(Piece** board, int lastMove)
 {
    set<int> bishopMoves;
 

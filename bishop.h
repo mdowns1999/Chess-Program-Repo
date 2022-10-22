@@ -25,6 +25,6 @@ public:
    //Inherited Functions
    char getLetter() { return letter; }
    virtual void display(ogstream& gout);
-   set<int> getMoves(Piece** board);
+   set<int> getMoves(Piece** board, int lastMove);
 };
 

@@ -55,7 +55,6 @@ Board::Board()
       board[pPawn->getPosition().getLocation()] = pPawn;
    }
 
-
    //BLACK PIECES
    King* pBKing = new King(1, 4, true);
    board[pBKing->getPosition().getLocation()] = pBKing;
@@ -81,7 +80,7 @@ Board::Board()
       Pawn* pPawn = new Pawn(2, i, true);
       board[pPawn->getPosition().getLocation()] = pPawn;
    }
-};
+}
 
 /*****************************************************************
  * DISPLAY
@@ -108,7 +107,7 @@ void Board::display(Interface& ui, set <int> possible)
    {
       board[itPiece]->display(gout);
    }
-};
+}
 
 /*****************************************************************
  * MOVE
@@ -121,7 +120,7 @@ bool Board::move(int positionFrom, int positionTo)
       return false;
 
    // find the set of possible moves from our current location
-   set <int> possiblePrevious = board[positionFrom]->getMoves(board);
+   set <int> possiblePrevious = board[positionFrom]->getMoves(board, lastMove);
 
    // only move there is the suggested move is on the set of possible moves
    if (possiblePrevious.find(positionTo) != possiblePrevious.end())
@@ -133,24 +132,15 @@ bool Board::move(int positionFrom, int positionTo)
       capture(positionFrom);
 
       //Can the piece Promote?
-      if ((board[positionTo]->getPosition().getRow() == 1 
-      || board[positionTo]->getPosition().getRow() == 8) 
-      && (board[positionTo]->getLetter() == 'P' || 
-      board[positionTo]->getLetter() == 'p'))
-      {
-          addPromotion(positionTo);
-      }
+      addPromotion(positionTo);
 
       //If the Move is an Enpassant move, we perform it
-      if (board[positionTo]->getEmpassant())
-      {
-          addEnpassant(positionTo);
-      }
+      addEnpassant(positionTo);
 
       // If the Move is a Castle, we perform it
       addCastle(positionTo);
 
-
+      lastMove = positionTo;
       currentMove++;
       return true;
    }
@@ -182,9 +172,7 @@ void Board::swap(int positionFrom, int positionTo)
    Piece* storePiece = board[positionTo];
    board[positionTo] = board[positionFrom];
    board[positionFrom] = storePiece;
-
-
-};
+}
 
 /*****************************************************************
  * CAPTURE
@@ -202,7 +190,7 @@ void Board::capture(int positionFrom)
       // Free old object
       free(positionFrom, pPiece);
    }
-};
+}
 
 /*****************************************************************
 * ADD PROMOTION
@@ -210,15 +198,20 @@ void Board::capture(int positionFrom)
 *******************************************************************/
 void Board::addPromotion(int positionTo)
 {
+   if ((board[positionTo]->getPosition().getRow() == 1
+      || board[positionTo]->getPosition().getRow() == 8)
+      && (board[positionTo]->getLetter() == 'P' 
+      || board[positionTo]->getLetter() == 'p'))
+   {
+      int row2 = board[positionTo]->getPosition().getRow();
+      int col2 = board[positionTo]->getPosition().getColumn() - 1;
 
-   int row2 = board[positionTo]->getPosition().getRow();
-   int col2 = board[positionTo]->getPosition().getColumn() - 1;
+      Piece* pQiece = new Queen(row2, col2, board[positionTo]->isWhite());
 
-   Piece* pQiece = new Queen(row2, col2, board[positionTo]->isWhite());
-
-   //Free the Space
-   free(positionTo, pQiece);
-};
+      //Free the Space
+      free(positionTo, pQiece);
+   }
+}
 
 /*****************************************************************
 * ADD ENPASSANT
@@ -226,16 +219,19 @@ void Board::addPromotion(int positionTo)
 ******************************************************************/
 void Board::addEnpassant(int positionTo)
 {
-   //Based off the color will determine the direction of the pawn.
-   int direction = board[positionTo]->isWhite() ? -8 : 8;
+   if (board[positionTo]->getEmpassant())
+   {
+      //Based off the color will determine the direction of the pawn.
+      int direction = board[positionTo]->isWhite() ? -8 : 8;
 
-   int row = board[positionTo]->getPosition().getRow() - 1;
-   int col = board[positionTo]->getPosition().getColumn() - 1;
+      int row = board[positionTo]->getPosition().getRow() - 1;
+      int col = board[positionTo]->getPosition().getColumn() - 1;
 
-   Piece* pPiece = new Piece(row, col, true);
+      Piece* pPiece = new Piece(row, col, true);
 
-   //Free the Space
-   free(positionTo + direction, pPiece);
+      //Free the Space
+      free(positionTo + direction, pPiece);
+   }
 }
 
 /*****************************************************************

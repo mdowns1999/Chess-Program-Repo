@@ -30,7 +30,7 @@ Knight::Knight(int r, int c, bool white)
 GET MOVES
 Get the Moves for the Knight Piece
 *************************************/
-set<int> Knight::getMoves(Piece** board)
+set<int> Knight::getMoves(Piece** board, int lastMove)
 {
   set<int> knightMoves;
 

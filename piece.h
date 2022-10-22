@@ -58,7 +58,7 @@ public:
    //Virtual Functions for Inheritance
    virtual char getLetter() { return letter; }
    virtual void display(ogstream &gout) {}
-   virtual set<int> getMoves(Piece** board) { return set<int>(); }
+   virtual set<int> getMoves(Piece** board, int lastMove) { return set<int>(); }
    virtual bool getEmpassant() {return false;}
 };
 
